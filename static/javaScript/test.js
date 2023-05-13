@@ -19,7 +19,53 @@ var object = new CSS3DObject(element);
 object.position.set(0, 0, -100);
 scene.add(object);
 
+var element2 = document.createElement('button');
+element2.innerHTML = 'Hello World!';
+var object2 = new CSS3DObject(element2);
+object2.position.set(0, 20, -100);
+scene.add(object2);
+
+const objects = []; // CSS3Dオブジェクトを格納する配列
+
+// シーン内の全てのCSS3Dオブジェクトを取得し、配列に格納する
+scene.traverse(function(object) {
+    if(object.type=="Object3D"){
+        objects.push(object);
+    }
+});
+
 renderer.render(scene, camera);
+
+const data = objects.map(function(object) {
+    return {
+      id: object.element.id,
+      tagName: object.element.tagName,
+      innerHTML: object.element.innerHTML,
+      position: {
+        x: object.position.x,
+        y: object.position.y,
+        z: object.position.z
+      },
+      rotation: {
+        x: object.rotation.x,
+        y: object.rotation.y,
+        z: object.rotation.z
+      },
+      scale: {
+        x: object.scale.x,
+        y: object.scale.y,
+        z: object.scale.z
+      }
+    };
+  });
+  
+  // JSONデータをダウンロードする
+  const json = JSON.stringify(data);
+  const a = document.createElement('a');
+  const file = new Blob([json], {type: 'application/json'});
+  a.href = URL.createObjectURL(file);
+  a.download = 'data.json';
+  a.click();
 
 function animate() {
     requestAnimationFrame(animate);
