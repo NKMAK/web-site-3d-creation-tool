@@ -14,9 +14,27 @@ window.addEventListener('DOMContentLoaded', function(){
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
   camera.position.z=100;
   const controls = new OrbitControls(camera, renderer.domElement);
+  
+// カメラの上方向を設定
+const up = new THREE.Vector3(0, 1, 0);
+
+// キー入力を格納するオブジェクト
+const keys = {};
+
+// カメラの移動速度
+const speed = 1;
+
+// キーボードイベントリスナーを設定する
+document.addEventListener("keydown", (event) => {
+  keys[event.code] = true;
+});
+
+document.addEventListener("keyup", (event) => {
+  keys[event.code] = false;
+});
 
   function init(){
-    fetch('static/sceneJson/data (2).json')
+    fetch('static/sceneJson/data.json')
     .then(response => response.json())
     .then(data => {
       for (let i = 0; i < data.length; i++) {
@@ -34,9 +52,30 @@ window.addEventListener('DOMContentLoaded', function(){
   }
 
   function animate() {
+
+  // キー入力に応じてカメラを移動する
+  const cameraDirection = new THREE.Vector3();
+  camera.getWorldDirection(cameraDirection);
+
+  const moveVector = new THREE.Vector3();
+
+
+  if (keys["KeyW"]){
+    moveVector.add(cameraDirection.clone().multiplyScalar(speed));
+  }
+  if (keys["KeyA"]){
+    moveVector.add(cameraDirection.clone().cross(up).normalize().multiplyScalar(-speed));
+  }
+  if (keys["KeyS"]){
+    moveVector.add(cameraDirection.clone().multiplyScalar(-speed));
+  } 
+  if (keys["KeyD"]){
+    moveVector.add(cameraDirection.clone().cross(up).normalize().multiplyScalar(speed));
+  } 
+  camera.position.add(moveVector);
+    
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
-    controls.update();
   }
 
   init();
