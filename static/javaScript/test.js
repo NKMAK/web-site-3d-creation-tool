@@ -3,6 +3,7 @@ import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
 import{create3dObjElement} from"../javaScript/create3dObjElement.js";
+import {CameraController}from"../javaScript/cameraRotation.js";
 
 const webGLRender = new THREE.WebGLRenderer();
 webGLRender.setSize(window.innerWidth, window.innerHeight);
@@ -23,9 +24,14 @@ webGLRender.domElement.style.top = 0;
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 100;
+camera.position.set(0,20,100);
+
 const cssControls = new OrbitControls(camera, cssRender.domElement);
 const webGLControls = new OrbitControls(camera, webGLRender.domElement);
+
+
+const touchControls = new CameraController(camera, cssRender,cssControls);
+touchControls.enableRotation=false;   
 
 window.addEventListener('DOMContentLoaded', function(){
 
@@ -34,7 +40,8 @@ window.addEventListener('DOMContentLoaded', function(){
   
 // 立方体の形状を作成
 const geometry = new THREE.BoxGeometry(1, 1, 1);
-
+const gridHelper = new THREE.GridHelper(100, 100);
+scene.add(gridHelper);
 // 物体を作成
 const material = new THREE.MeshBasicMaterial({ color: 0xffffff  });
 const cube = new THREE.Mesh(geometry, material);
@@ -45,22 +52,13 @@ scene.add(cube);
   )
   transformControls.addEventListener(
     'mouseDown', function(e){
-      /// OrbitControls無効化
-      webGLControls.enablePan = false;
-      webGLControls.enableRotate = false;
-      cssControls.enablePan = false;
-      cssControls.enableRotate = false;
-      
+     touchControls.enableRotation=false;   
+
     }.bind(this)
   )
   transformControls.addEventListener(
     'mouseUp', function(e){
-      /// OrbitControls有効化
-      webGLControls.enablePan = true;
-      webGLControls.enableRotate = true;
-      
-      cssControls.enablePan = true;
-      cssControls.enableRotate = true;
+      //touchControls.enableRotation=true;
     }.bind(this)
   )
   /// 移動対象のメッシュを指定
@@ -70,15 +68,14 @@ scene.add(cube);
 
   function animate() {
     requestAnimationFrame(animate);
-    cssControls.update(); // OrbitControlsを更新する
-    webGLControls.update();
+    touchControls.test();
     cssRender.render(scene, camera);
     webGLRender.render(scene,camera);
   }
   animate();
 
   function onClick(event) {
-    if (event.button === 0) {
+    if (event.button == 0) {
       const mouse = new THREE.Vector2();
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -98,7 +95,6 @@ scene.add(cube);
         }
       }
     }
-    dl();
   }
   
   window.addEventListener('click', onClick);
@@ -144,7 +140,7 @@ scene.add(cube);
       const file = new Blob([json], {type: 'application/json'});
       a.href = URL.createObjectURL(file);
       a.download = 'data.json';
-      a.click();
+      //a.click();
     
     
     
