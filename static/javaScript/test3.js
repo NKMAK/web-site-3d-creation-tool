@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import {CameraController}from"../javaScript/cameraRotation.js";
+import {CameraController}from"./cameraMove.js";
 
 var scene, camera, renderer;
 var touchStartX, touchStartY;

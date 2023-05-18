@@ -3,7 +3,7 @@ import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
 import{create3dObjElement} from"../javaScript/create3dObjElement.js";
-import {CameraController}from"../javaScript/cameraRotation.js";
+import {CameraController}from"./cameraMove.js";
 
 const webGLRender = new THREE.WebGLRenderer();
 webGLRender.setSize(window.innerWidth, window.innerHeight);
@@ -29,9 +29,20 @@ camera.position.set(0,20,100);
 const cssControls = new OrbitControls(camera, cssRender.domElement);
 const webGLControls = new OrbitControls(camera, webGLRender.domElement);
 
+cssControls.addEventListener( 'start', change );
+function change(){
+  const cameraDirection = new THREE.Vector3();
+  camera.getWorldDirection(cameraDirection);
+
+  const targetX = camera.position.x + cameraDirection.x;
+  const targetY = camera.position.y;
+  const targetZ = camera.position.z + cameraDirection.z;
+
+  cssControls.target.set(targetX, targetY, targetZ);
+
+}
 
 const touchControls = new CameraController(camera, cssRender,cssControls);
-touchControls.enableRotation=false;   
 
 window.addEventListener('DOMContentLoaded', function(){
 
@@ -52,13 +63,12 @@ scene.add(cube);
   )
   transformControls.addEventListener(
     'mouseDown', function(e){
-     touchControls.enableRotation=false;   
 
     }.bind(this)
   )
   transformControls.addEventListener(
     'mouseUp', function(e){
-      //touchControls.enableRotation=true;
+      
     }.bind(this)
   )
   /// 移動対象のメッシュを指定
@@ -67,8 +77,12 @@ scene.add(cube);
   scene.add(transformControls)
 
   function animate() {
+    let isCameraMove;
+
     requestAnimationFrame(animate);
-    touchControls.test();
+    isCameraMove=touchControls.cameraPositionMove();
+    isCameraMove ?cssControls.enabled =false:cssControls.enabled =true;
+    console.log(isCameraMove)
     cssRender.render(scene, camera);
     webGLRender.render(scene,camera);
   }

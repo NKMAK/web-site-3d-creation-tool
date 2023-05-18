@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
-import {CameraController}from"../javaScript/cameraRotation.js";
+import {CameraController}from"./cameraMove.js";
 
 window.addEventListener('DOMContentLoaded', function(){
 
