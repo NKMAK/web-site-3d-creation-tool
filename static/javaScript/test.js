@@ -4,16 +4,19 @@ import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
 import{create3dObjElement} from"../javaScript/create3dObjElement.js";
 import {CameraController}from"./cameraMove.js";
+import {jsonExportSave} from"./jsonExportSave.js";
+
+const container=document.getElementById("container");
 
 const webGLRender = new THREE.WebGLRenderer();
-webGLRender.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(webGLRender.domElement);
+webGLRender.setSize(window.innerWidth*0.75, window.innerHeight);
+container.appendChild(webGLRender.domElement);
 
 const cssRender = new CSS3DRenderer();
-cssRender.setSize(window.innerWidth, window.innerHeight);
+cssRender.setSize(window.innerWidth*0.75, window.innerHeight);
 cssRender.domElement.style.position = 'absolute';
 cssRender.domElement.style.top = 0;
-document.body.appendChild(cssRender.domElement);
+container.appendChild(cssRender.domElement);
 
 cssRender.domElement.style.zIndex = '1';
 webGLRender.domElement.style.zIndex = '0';
@@ -27,9 +30,8 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.set(0,20,100);
 
 const cssControls = new OrbitControls(camera, cssRender.domElement);
-const webGLControls = new OrbitControls(camera, webGLRender.domElement);
 
-cssControls.addEventListener( 'start', change );
+//cssControls.addEventListener( 'start', change );
 function change(){
   const cameraDirection = new THREE.Vector3();
   camera.getWorldDirection(cameraDirection);
@@ -50,7 +52,7 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(object);
   
 // 立方体の形状を作成
-const geometry = new THREE.BoxGeometry(1, 1, 1);
+const geometry = new THREE.BoxGeometry(10, 10, 10);
 const gridHelper = new THREE.GridHelper(100, 100);
 scene.add(gridHelper);
 // 物体を作成
@@ -71,9 +73,7 @@ scene.add(cube);
       
     }.bind(this)
   )
-  /// 移動対象のメッシュを指定
   transformControls.attach( object );
-  /// TransformControlsを追加
   scene.add(transformControls)
 
   function animate() {
@@ -81,12 +81,13 @@ scene.add(cube);
 
     requestAnimationFrame(animate);
     isCameraMove=touchControls.cameraPositionMove();
-    isCameraMove ?cssControls.enabled =false:cssControls.enabled =true;
-    console.log(isCameraMove)
+    change();
+    cssControls.update();
     cssRender.render(scene, camera);
     webGLRender.render(scene,camera);
   }
   animate();
+
 
   function onClick(event) {
     if (event.button == 0) {
@@ -112,54 +113,6 @@ scene.add(cube);
   }
   
   window.addEventListener('click', onClick);
-  
-
-  function dl(){
-    const objects = []; // CSS3Dオブジェクトを格納する配列
-    
-    // シーン内の全てのCSS3Dオブジェクトを取得し、配列に格納する
-    scene.traverse(function(object) {
-        if(object.element!=undefined&&object.type=="Object3D"){
-            objects.push(object);
-            console.log(object)
-        }
-    });
-    
-    const data = objects.map(function(object) {
-        return {
-          id: object.element.id,
-          tagName: object.element.tagName,
-          innerHTML: object.element.innerHTML,
-          position: {
-            x: object.position.x,
-            y: object.position.y,
-            z: object.position.z
-          },
-          rotation: {
-            x: object.rotation.x,
-            y: object.rotation.y,
-            z: object.rotation.z
-          },
-          scale: {
-            x: object.scale.x,
-            y: object.scale.y,
-            z: object.scale.z
-          }
-        };
-      });
-      
-      // JSONデータをダウンロードする
-      const json = JSON.stringify(data);
-      const a = document.createElement('a');
-      const file = new Blob([json], {type: 'application/json'});
-      a.href = URL.createObjectURL(file);
-      a.download = 'data.json';
-      //a.click();
-    
-    
-    
-  }
-  
 
 });
 
