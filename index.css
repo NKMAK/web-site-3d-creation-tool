@@ -1,0 +1,24 @@
+.container {
+    position: relative;
+    display: flex;
+  }
+
+  #id_canvasContainer {
+    position: relative;
+  }
+  
+  .container {
+    text-align:center;
+    width: 100%;
+    height: 100%;
+  }
+  
+  #id_sidebar {
+    height: 100%;
+    width: 25%;
+  }
+
+  #id_inputHTML{
+    width: 90%;
+    height: 50%;
+  }

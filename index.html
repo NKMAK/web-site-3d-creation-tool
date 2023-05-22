@@ -1,11 +1,13 @@
 <head>
+    <link rel="stylesheet" href="index.css">
     <script type="importmap">
         {
             "imports": {
                 "three": "./static/three.js-dev/build/three.module.js",
                 "CSS3DRenderer":"./static/three.js-dev/examples/jsm/renderers/CSS3DRenderer.js",
                 "OrbitControls":"./static/three.js-dev/examples/jsm/controls/OrbitControls.js",
-                "TransformControls":"./static/three.js-dev/examples/jsm/controls/TransformControls.js"
+                "TransformControls":"./static/three.js-dev/examples/jsm/controls/TransformControls.js",
+                "Sidebar":"./static/three.js-dev/editor/js/Sidebar.js"
             }
         }
     </script>
@@ -14,6 +16,12 @@
     <title>3d-web</title>
 </head>
 <body>
-    <div id="container">
+    <div class="container">
+        <div id="id_canvasContainer">
+        </div>
+        <div id="id_sidebar">
+            <textarea id="id_inputHTML"></textarea>
+            <button id="id_drawHTMLButton">ok</button>
+        </div>
     </div>
 </body>
