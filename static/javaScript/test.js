@@ -19,9 +19,18 @@ cssRender.setSize(window.innerWidth*0.75, window.innerHeight);
 cssRender.domElement.style.top = 0;
 container.appendChild(cssRender.domElement);
 
+const canvas = document.createElement('canvas');
+const canvasWidth = window.innerWidth * 0.75;
+const canvasHeight = window.innerHeight;
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
+
+container.appendChild(canvas);
+
 cssRender.domElement.style.zIndex = '1';
 webGLRender.domElement.style.zIndex = '0';
 webGLRender.domElement.style.position = 'absolute';
+cssRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.top = 0;
 
 
@@ -30,9 +39,8 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0,20,100);
 
-const cssControls = new OrbitControls(camera, webGLRender.domElement);
+const cssControls = new OrbitControls(camera, cssRender.domElement);
 
-//cssControls.addEventListener( 'start', change );
 function change(){
   const cameraDirection = new THREE.Vector3();
   camera.getWorldDirection(cameraDirection);
@@ -48,9 +56,13 @@ function change(){
 const touchControls = new CameraController(camera, cssRender,cssControls);
 
 window.addEventListener('DOMContentLoaded', function(){
-
-  const object=create3dObjElement("<div><button>aa</button></div>",camera.position);
+  var sceneObject = new THREE.Object3D();
+  // シーンのオブジェクトに必要な設定やジオメトリ、マテリアルを追加するなど
+  
+  const object=create3dObjElement("<div><button id='test'>aa</button></div>",camera.position);
   scene.add(object);
+  object.userData.sceneObject = sceneObject;
+
 
   createInputHTML(scene,camera)
   
@@ -64,7 +76,7 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(cube);
 
   const transformControls = new TransformControls(
-    camera, webGLRender.domElement
+    camera, cssRender.domElement
   )
   transformControls.addEventListener(
     'mouseDown', function(e){
@@ -76,8 +88,7 @@ window.addEventListener('DOMContentLoaded', function(){
       
     }.bind(this)
   )
-  transformControls.attach( object );
-  scene.add(transformControls)
+
 
   function animate() {
     let isCameraMove;
@@ -93,7 +104,15 @@ window.addEventListener('DOMContentLoaded', function(){
 
 
   function onClick(event) {
-    if (event.button == 0) {
+
+  }
+  
+  window.addEventListener('click', onClick);
+
+});
+
+
+/*if (event.button == 0) {
       const mouse = new THREE.Vector2();
       mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
       mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -102,7 +121,8 @@ window.addEventListener('DOMContentLoaded', function(){
       raycaster.setFromCamera(mouse, camera);
   
       const intersects = raycaster.intersectObjects(scene.children);
-  
+      console.log(intersects)
+
       for (let i = 0; i < intersects.length; i++) {
         const obj = intersects[i].object.object;
         if(obj==undefined){
@@ -112,10 +132,4 @@ window.addEventListener('DOMContentLoaded', function(){
           console.log(obj);
         }
       }
-    }
-  }
-  
-  window.addEventListener('click', onClick);
-
-});
-
+    }*/
