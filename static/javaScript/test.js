@@ -3,7 +3,7 @@ import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
 import{create3dObjElement} from"../javaScript/create3dObjElement.js";
-import {CameraController}from"./cameraMove.js";
+import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js"
 import {jsonExportSave} from"./jsonExportSave.js";
 
@@ -39,7 +39,7 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0,20,100);
 
-const cssControls = new OrbitControls(camera, cssRender.domElement);
+const orbitControls = new OrbitControls(camera, cssRender.domElement);
 
 const transformControls = new TransformControls(
   camera, cssRender.domElement
@@ -55,23 +55,9 @@ transformControls.addEventListener(
   }.bind(this)
 )
 
-function change(){
-  const cameraDirection = new THREE.Vector3();
-  camera.getWorldDirection(cameraDirection);
-
-  const targetX = camera.position.x + cameraDirection.x;
-  const targetY = camera.position.y+ cameraDirection.y;
-  const targetZ = camera.position.z + cameraDirection.z;
-
-  cssControls.target.set(targetX, targetY, targetZ);
-
-}
-
-const touchControls = new CameraController(camera, cssRender,cssControls);
+const cameraControls = new CameraController(camera, cssRender,orbitControls);
 
 window.addEventListener('DOMContentLoaded', function(){
-  var sceneObject = new THREE.Object3D();
-  // シーンのオブジェクトに必要な設定やジオメトリ、マテリアルを追加するなど
   
   const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,transformControls);
 
@@ -92,41 +78,11 @@ window.addEventListener('DOMContentLoaded', function(){
     let isCameraMove;
 
     requestAnimationFrame(animate);
-    isCameraMove=touchControls.cameraPositionMove();
-    change();
-    cssControls.update();
+    isCameraMove=cameraControls.cameraPositionUpdate();
+    orbitControls.update();
     cssRender.render(scene, camera);
     webGLRender.render(scene,camera);
   }
   animate();
 
-
-  function onClick(event) {
-    alert("ok")
-  }
-
-
 });
-
-
-/*if (event.button == 0) {
-      const mouse = new THREE.Vector2();
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-  
-      const raycaster = new THREE.Raycaster();
-      raycaster.setFromCamera(mouse, camera);
-  
-      const intersects = raycaster.intersectObjects(scene.children);
-      console.log(intersects)
-
-      for (let i = 0; i < intersects.length; i++) {
-        const obj = intersects[i].object.object;
-        if(obj==undefined){
-          continue;
-        }
-        if (obj.type == 'Object3D') {
-          console.log(obj);
-        }
-      }
-    }*/
