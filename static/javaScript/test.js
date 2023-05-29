@@ -41,6 +41,20 @@ camera.position.set(0,20,100);
 
 const cssControls = new OrbitControls(camera, cssRender.domElement);
 
+const transformControls = new TransformControls(
+  camera, cssRender.domElement
+)
+transformControls.addEventListener(
+  'mouseDown', function(e){
+
+  }.bind(this)
+)
+transformControls.addEventListener(
+  'mouseUp', function(e){
+    
+  }.bind(this)
+)
+
 function change(){
   const cameraDirection = new THREE.Vector3();
   camera.getWorldDirection(cameraDirection);
@@ -59,12 +73,10 @@ window.addEventListener('DOMContentLoaded', function(){
   var sceneObject = new THREE.Object3D();
   // シーンのオブジェクトに必要な設定やジオメトリ、マテリアルを追加するなど
   
-  const object=create3dObjElement("<div><button id='test'>aa</button></div>",camera.position);
-  scene.add(object);
-  object.userData.sceneObject = sceneObject;
+  const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,transformControls);
 
 
-  createInputHTML(scene,camera)
+  createInputHTML(scene,camera,transformControls)
   
   // 立方体の形状を作成
   const geometry = new THREE.BoxGeometry(10, 10, 10);
@@ -74,20 +86,6 @@ window.addEventListener('DOMContentLoaded', function(){
   const material = new THREE.MeshBasicMaterial({ color: 0xffffff  });
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
-
-  const transformControls = new TransformControls(
-    camera, cssRender.domElement
-  )
-  transformControls.addEventListener(
-    'mouseDown', function(e){
-
-    }.bind(this)
-  )
-  transformControls.addEventListener(
-    'mouseUp', function(e){
-      
-    }.bind(this)
-  )
 
 
   function animate() {
@@ -104,10 +102,9 @@ window.addEventListener('DOMContentLoaded', function(){
 
 
   function onClick(event) {
-
+    alert("ok")
   }
-  
-  window.addEventListener('click', onClick);
+
 
 });
 

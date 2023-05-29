@@ -1,14 +1,12 @@
 import{create3dObjElement} from"./create3dObjElement.js";
 
-export function createInputHTML(scene,camera) {
+export function createInputHTML(scene,camera,transformControls) {
     const inputHTML=document.getElementById("id_inputHTML");
     const drawHTMLButton=document.getElementById("id_drawHTMLButton")
-    let ok;
     
     drawHTMLButton.addEventListener("click", drawButtonKeyDown);
 
     function drawButtonKeyDown() {
-        const object=create3dObjElement(inputHTML.value,camera.position);
-        scene.add(object);
+        const object=create3dObjElement(inputHTML.value,camera.position,scene,transformControls);
     }
 }

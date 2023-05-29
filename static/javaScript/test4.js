@@ -15,10 +15,10 @@ document.body.appendChild(renderer.domElement);
 let elementTest;
 const object=create3dObjElement("<button id='test'>aa</button>",camera.position);
 
-
 // CSS3Dオブジェクトをsceneに追加
 var css3DScene =  new THREE.Object3D();
-css3DScene.add(object);
+await waitSceneAddCss3D();
+
 
 // TransformControlsの作成
 var transformControls = new TransformControls(camera, renderer.domElement);
@@ -26,9 +26,8 @@ var transformControls = new TransformControls(camera, renderer.domElement);
 
 // クリックイベントのハンドラ
 function onClick(event) {
-    var clickedObject = this.userData; // クリックした要素のオブジェクトを取得
-    console.log(event.target.parentNode.dataset);
-    console.log(elementTest.dataset)
+    console.log(event);
+    console.log(elementTest)
     console.log(css3DScene);
 
     const uuid = event.target.parentNode.dataset.uuid;
@@ -53,24 +52,25 @@ animate();
 
 
 //develop
-function create3dObjElement(inputDom,position){
+function  create3dObjElement(inputDom,position){
     console.log(inputDom)
     const parser = new DOMParser();
     const parsedHTML = parser.parseFromString(inputDom, 'text/html');
     elementTest = document.createElement("div");
-    elementTest.innerHTML =parsedHTML.body.firstChild.outerHTML;
+    elementTest.appendChild(parsedHTML.body.firstChild); // パースした要素を追加する
+    elementTest.addEventListener('mousedown', onClick);
+    elementTest.addEventListener('touchstart', onClick);
     const object = new CSS3DObject(elementTest);
     elementTest.dataset.uuid = object.uuid;
-    console.log(elementTest)
     object.position.set(position.x, position.y,position.z-100);
-    elementTest.addEventListener('click', onClick, false);
+    
     return object;
 }
 
 function attachObjectByUuid(uuid) {
     // シーン内のすべてのオブジェクトを検索
     css3DScene.traverse(function (object) {
-        console.log(object.uuid)
+        //console.log(object.uuid)
       if (object.uuid === uuid) {
         console.log("ok")
         // オブジェクトをTransformControlsにアタッチ
@@ -78,4 +78,9 @@ function attachObjectByUuid(uuid) {
         css3DScene.add(transformControls)
       }
     });
+  }
+
+  async function waitSceneAddCss3D(){
+    css3DScene.add(object);
+    console.log(document.getElementById("test"))
   }
