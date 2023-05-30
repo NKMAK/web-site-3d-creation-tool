@@ -5,6 +5,7 @@ import {TransformControls} from"TransformControls";
 import{create3dObjElement} from"../javaScript/create3dObjElement.js";
 import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js"
+import{transformControlsModeChage}from "./transformControlsMode.js"
 import {jsonExportSave} from"./jsonExportSave.js";
 
 const container=document.getElementById("id_canvasContainer");
@@ -44,6 +45,7 @@ const orbitControls = new OrbitControls(camera, cssRender.domElement);
 const transformControls = new TransformControls(
   camera, cssRender.domElement
 )
+transformControls.setMode("translate");
 transformControls.addEventListener(
   'mouseDown', function(e){
 
@@ -61,8 +63,9 @@ window.addEventListener('DOMContentLoaded', function(){
   
   const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,transformControls);
 
+  transformControlsModeChage(transformControls);
 
-  createInputHTML(scene,camera,transformControls)
+  createInputHTML(scene,camera,transformControls);
   
   // 立方体の形状を作成
   const geometry = new THREE.BoxGeometry(10, 10, 10);
