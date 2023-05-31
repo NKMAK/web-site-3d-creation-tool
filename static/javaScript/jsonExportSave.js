@@ -37,6 +37,7 @@ export function jsonExportSave(scene){
       const a = document.createElement('a');
       const file = new Blob([json], {type: 'application/json'});
       a.href = URL.createObjectURL(file);
+      console.log(a.href)
       a.download = 'data.json';
-      //a.click();
-  }
+      a.click();
+}

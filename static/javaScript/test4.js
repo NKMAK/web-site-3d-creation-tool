@@ -1,86 +1,32 @@
+// 必要なライブラリとシーン、カメラ、レンダラーを用意する
 import * as THREE from 'three';
-import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
-import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
-import {CameraController}from"./cameraMove.js";
-import {jsonExportSave} from"./jsonExportSave.js";
-// 初期化
-var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-var renderer = new CSS3DRenderer;
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-//develop
-let elementTest;
-const object=create3dObjElement("<button id='test'>aa</button>",camera.position);
+// 立方体のジオメトリとマテリアルを作成
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
-// CSS3Dオブジェクトをsceneに追加
-var css3DScene =  new THREE.Object3D();
-await waitSceneAddCss3D();
+// 立方体のメッシュを作成
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
 
+// transformControlsを作成し、立方体にアタッチ
+const controls = new TransformControls(camera, renderer.domElement);
+controls.attach(cube);
+scene.add(controls);
 
-// TransformControlsの作成
-var transformControls = new TransformControls(camera, renderer.domElement);
+// カメラの位置を設定
+camera.position.z = 5;
 
-
-// クリックイベントのハンドラ
-function onClick(event) {
-    console.log(event);
-    console.log(elementTest)
-    console.log(css3DScene);
-
-    const uuid = event.target.parentNode.dataset.uuid;
-  
-    if (uuid !== undefined) {
-      console.log("Clicked object3D uuid:", uuid);
-      attachObjectByUuid(uuid); // uuidに対応するオブジェクトをアタッチ
-    }
-
-}
-
-// クリックイベントのリスナーを追加
-
-
-// アニメーションループ
+// レンダリングループを作成
 function animate() {
   requestAnimationFrame(animate);
-  renderer.render(css3DScene, camera);
+  renderer.render(scene, camera);
 }
 animate();
-
-
-
-//develop
-function  create3dObjElement(inputDom,position){
-    console.log(inputDom)
-    const parser = new DOMParser();
-    const parsedHTML = parser.parseFromString(inputDom, 'text/html');
-    elementTest = document.createElement("div");
-    elementTest.appendChild(parsedHTML.body.firstChild); // パースした要素を追加する
-    elementTest.addEventListener('mousedown', onClick);
-    elementTest.addEventListener('touchstart', onClick);
-    const object = new CSS3DObject(elementTest);
-    elementTest.dataset.uuid = object.uuid;
-    object.position.set(position.x, position.y,position.z-100);
-    
-    return object;
-}
-
-function attachObjectByUuid(uuid) {
-    // シーン内のすべてのオブジェクトを検索
-    css3DScene.traverse(function (object) {
-        //console.log(object.uuid)
-      if (object.uuid === uuid) {
-        console.log("ok")
-        // オブジェクトをTransformControlsにアタッチ
-        transformControls.attach(object);
-        css3DScene.add(transformControls)
-      }
-    });
-  }
-
-  async function waitSceneAddCss3D(){
-    css3DScene.add(object);
-    console.log(document.getElementById("test"))
-  }

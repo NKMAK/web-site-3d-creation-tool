@@ -10,12 +10,23 @@
             }
         }
     </script>
-    <script type="module" src="./static/javaScript/test2.js"></script>
+    <script type="module" src="./static/javaScript/test.js"></script>
     <meta charset="UTF-8" />
     <title>3d-web</title>
 </head>
 <body>
+    <div>
+        <button id="id_translateModeButton">移動</button>
+        <button id="id_rotateModeButton">回転</button>
+        <button id="id_scaleModeButton">拡大</button>
+        <button id="id_jsonExportButton">エクスポート</button>
+        <button id="id_sceneRemoveButton">削除</button>
+    </div>
     <div class="container">
         <div id="id_canvasContainer"></div>
+        <div id="id_sidebar">
+            <textarea id="id_inputHTML"></textarea>
+            <button id="id_drawHTMLButton">ok</button>
+        </div>
     </div>
 </body>

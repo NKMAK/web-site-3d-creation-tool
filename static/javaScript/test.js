@@ -8,6 +8,7 @@ import{createInputHTML} from"./createInputHTML.js"
 import{transformControlsModeChage}from "./transformControlsMode.js"
 import {jsonExportSave} from"./jsonExportSave.js";
 
+
 const container=document.getElementById("id_canvasContainer");
 
 const webGLRender = new THREE.WebGLRenderer();
@@ -28,12 +29,13 @@ canvas.height = canvasHeight;
 
 container.appendChild(canvas);
 
-cssRender.domElement.style.zIndex = '1';
+cssRender.domElement.style.zIndex = '0';
 webGLRender.domElement.style.zIndex = '0';
 webGLRender.domElement.style.position = 'absolute';
 cssRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.top = 0;
-
+cssRender.domElement.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+webGLRender.domElement.style.backgroundColor="#000000"
 
 const scene = new THREE.Scene();
 
@@ -45,6 +47,7 @@ const orbitControls = new OrbitControls(camera, cssRender.domElement);
 const transformControls = new TransformControls(
   camera, cssRender.domElement
 )
+
 transformControls.setMode("translate");
 transformControls.addEventListener(
   'mouseDown', function(e){
@@ -58,6 +61,8 @@ transformControls.addEventListener(
 )
 
 const cameraControls = new CameraController(camera, cssRender,orbitControls);
+
+//onMouseClick(cssRender.domElement);
 
 window.addEventListener('DOMContentLoaded', function(){
   
@@ -76,7 +81,6 @@ window.addEventListener('DOMContentLoaded', function(){
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
 
-
   function animate() {
     let isCameraMove;
 
@@ -88,4 +92,14 @@ window.addEventListener('DOMContentLoaded', function(){
   }
   animate();
 
+
+});
+
+document.getElementById("id_jsonExportButton").addEventListener("click",function(){
+  jsonExportSave(scene);
+});
+
+document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
+  scene.remove(transformControls.object);
+  transformControls.detach();
 });
