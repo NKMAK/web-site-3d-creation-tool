@@ -40,7 +40,7 @@ const cameraControls = new CameraController(camera, cssRender,orbitControls);
 window.addEventListener('DOMContentLoaded', function(){
 
   function init(){
-    fetch('static/sceneJson/data.json')
+    fetch('static/sceneJson/data (1).json')
     .then(response => response.json())
     .then(data => {
       for (let i = 0; i < data.length; i++) {

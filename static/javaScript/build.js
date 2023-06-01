@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
-import{create3dObjElement} from"../javaScript/create3dObjElement.js";
+import{create3dObjElement} from"./create3dObjElement.js";
 import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js"
 import{transformControlsModeChage}from "./transformControlsMode.js"
@@ -48,21 +48,7 @@ const transformControls = new TransformControls(
   camera, cssRender.domElement
 )
 
-transformControls.setMode("translate");
-transformControls.addEventListener(
-  'mouseDown', function(e){
-
-  }.bind(this)
-)
-transformControls.addEventListener(
-  'mouseUp', function(e){
-    
-  }.bind(this)
-)
-
 const cameraControls = new CameraController(camera, cssRender,orbitControls);
-
-//onMouseClick(cssRender.domElement);
 
 window.addEventListener('DOMContentLoaded', function(){
   
@@ -103,3 +89,4 @@ document.getElementById("id_sceneRemoveButton").addEventListener("click",functio
   scene.remove(transformControls.object);
   transformControls.detach();
 });
+

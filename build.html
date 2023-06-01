@@ -1,5 +1,7 @@
 <head>
     <link rel="stylesheet" href="index.css">
+    <link id="id_dynamicStylesheet" rel="stylesheet" type="text/css" href="">
+
     <script type="importmap">
         {
             "imports": {
@@ -10,7 +12,7 @@
             }
         }
     </script>
-    <script type="module" src="./static/javaScript/test.js"></script>
+    <script type="module" src="./static/javaScript/build.js"></script>
     <meta charset="UTF-8" />
     <title>3d-web</title>
 </head>
@@ -27,6 +29,9 @@
         <div id="id_sidebar">
             <textarea id="id_inputHTML"></textarea>
             <button id="id_drawHTMLButton">ok</button>
+            <textarea id="id_inputCSS" rows="4" cols="50"></textarea>
+            <button id="id_applyCssButton">CSS適用</button>
         </div>
     </div>
+    <script src="./static/javaScript/applyCSS.js" ></script>
 </body>
