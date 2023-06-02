@@ -4,10 +4,10 @@ import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
 import{create3dObjElement} from"./create3dObjElement.js";
 import {CameraController}from"./cameraController.js";
-import{createInputHTML} from"./createInputHTML.js"
-import{transformControlsModeChage}from "./transformControlsMode.js"
+import{createInputHTML} from"./createInputHTML.js";
+import{transformControlsModeChage}from "./transformControlsMode.js";
 import {jsonExportSave} from"./jsonExportSave.js";
-
+import { modelLoad } from './modelLoad.js';
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -67,6 +67,12 @@ window.addEventListener('DOMContentLoaded', function(){
   const material = new THREE.MeshBasicMaterial({ color: 0xffffff  });
   const cube = new THREE.Mesh(geometry, material);
   scene.add(cube);
+
+  modelLoad(scene);
+
+  const light = new THREE.DirectionalLight(0xffffff); 
+  light.position.set(1, 1, 1); 
+  scene.add(light);
 
   function animate() {
     let isCameraMove;

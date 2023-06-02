@@ -1,2 +1,3 @@
 three.js-dev
-*.json
+*.glb
+sceneJson
