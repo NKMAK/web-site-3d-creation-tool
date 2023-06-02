@@ -26,7 +26,6 @@ export function create3dObjElement(inputDom,position,scene,transformControls){
 function onClick(event,scene,transformControls,element){
     const uuid = event.target.parentNode.dataset.uuid;
     const uuid2 = event.target.dataset.uuid;
-    event.target.style.borderColor="green";
     //console.log(uuid)
     console.log(event.target)
     if (uuid != undefined || uuid2 != undefined  ) {

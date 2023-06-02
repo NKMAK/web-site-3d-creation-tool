@@ -48,6 +48,7 @@ const transformControls = new TransformControls(
   camera, cssRender.domElement
 )
 
+transformControls.setSize(1.5);
 const cameraControls = new CameraController(camera, cssRender,orbitControls);
 
 window.addEventListener('DOMContentLoaded', function(){

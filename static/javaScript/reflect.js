@@ -32,7 +32,7 @@ webGLRender.domElement.style.top = 0;
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0,20,100);
+camera.position.set(0,20,600);
 
 const orbitControls = new OrbitControls(camera, cssRender.domElement);
 const cameraControls = new CameraController(camera, cssRender,orbitControls);
@@ -40,7 +40,7 @@ const cameraControls = new CameraController(camera, cssRender,orbitControls);
 window.addEventListener('DOMContentLoaded', function(){
 
   function init(){
-    fetch('static/sceneJson/data (1).json')
+    fetch('static/sceneJson/data.json')
     .then(response => response.json())
     .then(data => {
       for (let i = 0; i < data.length; i++) {
