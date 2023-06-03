@@ -29,13 +29,12 @@ canvas.height = canvasHeight;
 
 container.appendChild(canvas);
 
-cssRender.domElement.style.zIndex = '0';
+cssRender.domElement.style.zIndex = '1';
 webGLRender.domElement.style.zIndex = '0';
-webGLRender.domElement.style.position = 'absolute';
 cssRender.domElement.style.position = 'absolute';
+webGLRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.top = 0;
-cssRender.domElement.style.backgroundColor = 'rgba(0, 0, 0, 0)';
-webGLRender.domElement.style.backgroundColor="#000000"
+cssRender.domElement.style.top = 0;
 
 const scene = new THREE.Scene();
 
@@ -44,30 +43,38 @@ camera.position.set(0,20,100);
 
 const orbitControls = new OrbitControls(camera, cssRender.domElement);
 
-const transformControls = new TransformControls(
+const cssTransformControls = new TransformControls(
   camera, cssRender.domElement
 )
 
-transformControls.setSize(1.5);
+const webGLtransformControls = new TransformControls(
+  camera, webGLRender.domElement
+)
+
+cssTransformControls.setSize(1.5);
+webGLtransformControls.setSize(1.5);
 const cameraControls = new CameraController(camera, cssRender,orbitControls);
 
 window.addEventListener('DOMContentLoaded', function(){
   
-  const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,transformControls);
+  const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,cssTransformControls);
 
-  transformControlsModeChage(transformControls);
+  transformControlsModeChage(cssTransformControls);
+  scene.add(cssTransformControls);
+  scene.add(webGLtransformControls);
+  createInputHTML(scene,camera,cssTransformControls);
 
-  createInputHTML(scene,camera,transformControls);
-  
-  // 立方体の形状を作成
-  const geometry = new THREE.BoxGeometry(10, 10, 10);
-  const gridHelper = new THREE.GridHelper(100, 100);
-  scene.add(gridHelper);
-  // 物体を作成
-  const material = new THREE.MeshBasicMaterial({ color: 0xffffff  });
-  const cube = new THREE.Mesh(geometry, material);
-  scene.add(cube);
+// 平面ジオメトリの作成
+const geometry = new THREE.BoxGeometry(8, 8,9);
 
+// マテリアルの作成
+const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+
+// メッシュの作成
+const mesh = new THREE.Mesh(geometry, material);
+mesh.name="test"
+mesh.position.set(0,30,200)
+scene.add(mesh);
   modelLoad(scene);
 
   const light = new THREE.DirectionalLight(0xffffff); 
@@ -85,6 +92,32 @@ window.addEventListener('DOMContentLoaded', function(){
   }
   animate();
 
+  const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+function onMouseClick(event) {
+  event.preventDefault();
+  mouse.x = (event.clientX / cssRender.domElement.clientWidth) * 2 - 1;
+  mouse.y = -(event.clientY / cssRender.domElement.clientHeight) * 2 + 1;
+  raycaster.setFromCamera(mouse, camera);
+
+  const intersects = raycaster.intersectObjects(scene.children, true);
+  if (intersects.length > 0) {
+    const clickedObject = intersects[0].object;
+    const parentGroup = clickedObject.parent;
+    console.log(intersects)
+    if (parentGroup && parentGroup.isGroup) {
+      webGLtransformControls.attach(parentGroup);
+    }
+    else{
+      console.log("okkokook")
+
+      webGLtransformControls.attach(intersects[0].object);
+    }
+  }
+}
+
+window.addEventListener('click', onMouseClick, false);
 
 });
 
@@ -93,7 +126,19 @@ document.getElementById("id_jsonExportButton").addEventListener("click",function
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
-  scene.remove(transformControls.object);
-  transformControls.detach();
+  scene.remove(cssTransformControls.object);
+  cssTransformControls.detach();
+});
+
+document.getElementById("id_modeHTMLButton").addEventListener("click",function(){
+  webGLRender.domElement.style.opacity = 1.0;
+  cssRender.domElement.style.zIndex = '1';
+  webGLRender.domElement.style.zIndex = '0';
+});
+
+document.getElementById("id_modeModelButton").addEventListener("click",function(){
+  webGLRender.domElement.style.opacity = 0.7;
+  cssRender.domElement.style.zIndex = '0';
+  webGLRender.domElement.style.zIndex = '1';
 });
 

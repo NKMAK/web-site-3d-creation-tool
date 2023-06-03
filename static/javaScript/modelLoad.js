@@ -9,6 +9,7 @@ function createModel(jsonData,scene) {
         function (gltf) {
           const model = gltf.scene;
           scene.add(model);
+          console.log(model)
         },
         undefined,
         function (error) {

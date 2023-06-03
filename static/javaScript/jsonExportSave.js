@@ -1,7 +1,6 @@
 export function jsonExportSave(scene){
-    const objects = []; // CSS3Dオブジェクトを格納する配列
-    
-    // シーン内の全てのCSS3Dオブジェクトを取得し、配列に格納する
+    const objects = []; 
+
     scene.traverse(function(object) {
         if(object.element!=undefined&&object.type=="Object3D"){
             objects.push(object);
@@ -32,7 +31,6 @@ export function jsonExportSave(scene){
         };
       });
       
-      // JSONデータをダウンロードする
       const json = JSON.stringify(data);
       const a = document.createElement('a');
       const file = new Blob([json], {type: 'application/json'});
