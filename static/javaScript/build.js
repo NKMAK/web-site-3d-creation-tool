@@ -53,8 +53,6 @@ const webGLtransformControls = new TransformControls(
   camera, webGLRender.domElement
 )
 
-cssTransformControls.setSize(1.5);
-webGLtransformControls.setSize(1.5);
 const cssCameraControls = new CameraController(camera, cssRender,cssOrbitControls);
 const webGLCameraControls = new CameraController(camera, cssRender,webGLOrbitControls);
 
@@ -65,6 +63,8 @@ window.addEventListener('DOMContentLoaded', function(){
   const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,cssTransformControls);
 
   transformControlsModeChage(cssTransformControls);
+  cssTransformControls.name="TransformControls";
+  webGLtransformControls.name="TransformControls";
   scene.add(cssTransformControls);
   scene.add(webGLtransformControls);
   createInputHTML(scene,camera,cssTransformControls);
@@ -76,7 +76,6 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(light);
 
   function animate() {
-    let isCameraMove;
 
     requestAnimationFrame(animate);
     cssCameraControls.cameraPositionUpdate();
@@ -90,8 +89,11 @@ window.addEventListener('DOMContentLoaded', function(){
 
   const raycaster = new THREE.Raycaster();
   const mouse = new THREE.Vector2();
-
   function onMouseClick(event) {
+  if (event.button != 2) {
+      return;
+    }
+    console.log("cliccc")
     event.preventDefault();
     mouse.x = (event.clientX / cssRender.domElement.clientWidth) * 2 - 1;
     mouse.y = -(event.clientY / cssRender.domElement.clientHeight) * 2 + 1;
@@ -99,19 +101,35 @@ window.addEventListener('DOMContentLoaded', function(){
 
     const intersects = raycaster.intersectObjects(scene.children, true);
     if (intersects.length > 0) {
-      const clickedObject = intersects[0].object;
+      let clickedObject = intersects[0].object;
       const parentGroup = clickedObject.parent;
-      console.log(intersects)
+
+      for(let i=0; i<intersects.length-1; i++){
+        if(intersects[i].object.type=="TransformControlsPlane" || intersects[i].object.type=="webGLtransformControls"){
+          clickedObject=intersects[i+1].object;
+          console.log("okokok")
+          console.log(clickedObject)
+        }
+        else{
+          break;
+        }
+      }
+
       if (parentGroup && parentGroup.isGroup) {
+        console.log("intersects")
         webGLtransformControls.attach(parentGroup);
+        scene.add(webGLtransformControls)
       }
       else{
-        webGLtransformControls.attach(intersects[0].object);
+        webGLtransformControls.attach(clickedObject);
+        scene.add(webGLtransformControls)
       }
+
     }
   }
+  //指定されたUUIDのみattachする↑
 
-  window.addEventListener('click', onMouseClick);
+  webGLRender.domElement.addEventListener('mousedown', onMouseClick);
 
 });
 
