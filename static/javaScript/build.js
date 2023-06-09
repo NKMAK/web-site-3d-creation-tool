@@ -93,7 +93,7 @@ window.addEventListener('DOMContentLoaded', function(){
   if (event.button != 2) {
       return;
     }
-    console.log("cliccc")
+
     event.preventDefault();
     mouse.x = (event.clientX / cssRender.domElement.clientWidth) * 2 - 1;
     mouse.y = -(event.clientY / cssRender.domElement.clientHeight) * 2 + 1;
