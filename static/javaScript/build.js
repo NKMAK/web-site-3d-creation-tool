@@ -7,7 +7,7 @@ import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js";
 import{transformControlsModeChage}from "./transformControlsMode.js";
 import {jsonExportSave} from"./jsonExportSave.js";
-import { modelLoad } from './modelLoad.js';
+import { modelLoad,gltfObjects } from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./acriveStateTransformControls.js"
 
 const container=document.getElementById("id_canvasContainer");
@@ -127,14 +127,13 @@ window.addEventListener('DOMContentLoaded', function(){
 
     }
   }
-  //指定されたUUIDのみattachする↑
 
   webGLRender.domElement.addEventListener('mousedown', onMouseClick);
 
 });
 
 document.getElementById("id_jsonExportButton").addEventListener("click",function(){
-  jsonExportSave(scene);
+  jsonExportSave(scene,gltfObjects);
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){

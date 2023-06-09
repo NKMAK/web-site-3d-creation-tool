@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {CameraController}from"./cameraController.js";
+import{modelJsonLoad}from"./modelLoad.js"
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -40,20 +41,21 @@ const cameraControls = new CameraController(camera, cssRender,orbitControls);
 window.addEventListener('DOMContentLoaded', function(){
 
   function init(){
-    fetch('static/sceneJson/data.json')
+    fetch('static/sceneJson/data (3).json')
     .then(response => response.json())
     .then(data => {
-      for (let i = 0; i < data.length; i++) {
-          const element = document.createElement(data[i].tagName);
-          element.innerHTML = data[i].innerHTML;
+      for (let i = 0; i < data.html.length; i++) {
+          const element = document.createElement(data.html[i].tagName);
+          element.innerHTML = data.html[i].innerHTML;
         
           const object = new CSS3DObject(element);
-          object.position.set(data[i].position.x, data[i].position.y, data[i].position.z);
-          object.rotation.set(data[i].rotation.x, data[i].rotation.y, data[i].rotation.z);
-          object.scale.set(data[i].scale.x, data[i].scale.y, data[i].scale.z);
+          object.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
+          object.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
+          object.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
         
           scene.add(object);
         }
+      modelJsonLoad(scene, data);
     });
   }
   var particles = [];
@@ -81,6 +83,10 @@ window.addEventListener('DOMContentLoaded', function(){
   for (var i = 0; i < 2000; i++) {
     particles.push(createParticle());
   }
+
+  const light = new THREE.DirectionalLight(0xffffff); 
+  light.position.set(1, 1, 1); 
+  scene.add(light);
 
   function animate() {
     cameraControls.cameraPositionUpdate();
