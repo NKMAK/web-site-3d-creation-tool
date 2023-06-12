@@ -57,3 +57,24 @@ function createModel(jsonData,scene) {
       );
     }
   }
+
+  export function uploadFileLoderGLTF(scene){
+    document.getElementById('id_inputFile').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      const modelPath = URL.createObjectURL(file); 
+      const loader = new GLTFLoader();
+      loader.load(
+        modelPath,
+        function (gltf) {
+          const model = gltf.scene;
+          scene.add(model);
+        },
+        undefined,
+        function (error) {
+          console.error(error);
+        }
+      );
+    });
+  }
+
+  

@@ -7,7 +7,7 @@ import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js";
 import{transformControlsModeChage}from "./transformControlsMode.js";
 import {jsonExportSave} from"./jsonExportSave.js";
-import { modelLoad,gltfObjects } from './modelLoad.js';
+import { modelLoad,gltfObjects, uploadFileLoderGLTF } from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./acriveStateTransformControls.js"
 
 const container=document.getElementById("id_canvasContainer");
@@ -70,6 +70,7 @@ window.addEventListener('DOMContentLoaded', function(){
   createInputHTML(scene,camera,cssTransformControls);
 
   modelLoad(scene);
+  uploadFileLoderGLTF(scene);
 
   const light = new THREE.DirectionalLight(0xffffff); 
   light.position.set(1, 1, 1); 
@@ -154,4 +155,3 @@ document.getElementById("id_modeModelButton").addEventListener("click",function(
   webGLRender.domElement.style.zIndex = '1';
   webGLActiveTransformControls(cssTransformControls,webGLtransformControls);
 });
-
