@@ -53,6 +53,7 @@ const webGLtransformControls = new TransformControls(
   camera, webGLRender.domElement
 )
 
+
 const cssCameraControls = new CameraController(camera, cssRender,cssOrbitControls);
 const webGLCameraControls = new CameraController(camera, cssRender,webGLOrbitControls);
 
@@ -71,6 +72,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
   modelLoad(scene);
   uploadFileLoderGLTF(scene);
+  uploadFileLoderImage(scene);
 
   const light = new THREE.DirectionalLight(0xffffff); 
   light.position.set(1, 1, 1); 
@@ -155,3 +157,34 @@ document.getElementById("id_modeModelButton").addEventListener("click",function(
   webGLRender.domElement.style.zIndex = '1';
   webGLActiveTransformControls(cssTransformControls,webGLtransformControls);
 });
+
+
+function uploadFileLoderImage(scene){
+  document.getElementById('id_inputFilePNG').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+    
+      reader.onload = function (event) {
+        const imageUrl = event.target.result;
+        const image = new Image();
+        image.src = imageUrl;
+        image.onload = function () {
+          const aspectRatio = image.width / (image.height*0.75); 
+      
+          const textureLoader = new THREE.TextureLoader();
+          const texture = textureLoader.load(imageUrl);
+      
+          const material = new THREE.MeshBasicMaterial({ map: texture });
+          const geometry = new THREE.PlaneGeometry(aspectRatio*50, 50);
+
+      
+          const mesh = new THREE.Mesh(geometry, material);
+          scene.add(mesh);
+        }
+
+      };
+    
+      // 画像ファイルをData URL形式で読み込む
+      reader.readAsDataURL(file);
+    });
+}
