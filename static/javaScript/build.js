@@ -56,7 +56,7 @@ const webGLtransformControls = new TransformControls(
 
 
 const cssCameraControls = new CameraController(camera, cssRender,cssOrbitControls);
-const webGLCameraControls = new CameraController(camera, cssRender,webGLOrbitControls);
+const webGLCameraControls = new CameraController(camera, webGLRender,webGLOrbitControls);
 
 cssActiveTransformControls(cssTransformControls,webGLtransformControls);
 
@@ -64,7 +64,7 @@ window.addEventListener('DOMContentLoaded', function(){
   
   const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,cssTransformControls);
 
-  transformControlsModeChage(cssTransformControls);
+  transformControlsModeChage(cssTransformControls,webGLtransformControls);
   cssTransformControls.name="TransformControls";
   webGLtransformControls.name="TransformControls";
   scene.add(cssTransformControls);
@@ -84,8 +84,8 @@ window.addEventListener('DOMContentLoaded', function(){
     requestAnimationFrame(animate);
     cssCameraControls.cameraPositionUpdate();
     webGLCameraControls.cameraPositionUpdate();
-    cssOrbitControls.update();
-    webGLOrbitControls.update();
+    //cssOrbitControls.update();
+    //webGLOrbitControls.update();
     cssRender.render(scene, camera);
     webGLRender.render(scene,camera);
   }
