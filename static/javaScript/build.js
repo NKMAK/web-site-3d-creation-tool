@@ -8,7 +8,7 @@ import{createInputHTML} from"./createInputHTML.js";
 import{transformControlsModeChage}from "./transformControlsMode.js";
 import {jsonExportSave} from"./jsonExportSave.js";
 import { modelLoad,gltfObjects, uploadFileLoderGLTF } from './modelLoad.js';
-import {cssActiveTransformControls, webGLActiveTransformControls} from "./acriveStateTransformControls.js";
+import {cssActiveTransformControls, webGLActiveTransformControls} from "./activeStateTransformControls.js";
 import{uploadImageLoder} from"./uploadImageLoder.js"
 
 const container=document.getElementById("id_canvasContainer");
@@ -73,7 +73,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
   modelLoad(scene);
   uploadFileLoderGLTF(scene,camera);
-  uploadImageLoder(scene);
+  uploadImageLoder(scene,camera);
 
   const light = new THREE.DirectionalLight(0xffffff); 
   light.position.set(1, 1, 1); 
