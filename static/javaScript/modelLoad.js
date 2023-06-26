@@ -1,4 +1,5 @@
 import {GLTFLoader} from"GLTFLoader";
+import * as THREE from 'three';
 
 export let gltfObjects=[];
 
@@ -14,10 +15,6 @@ function createModel(jsonData,scene) {
           gltfObjects.push(model);
           gltfObjects[gltfObjects.length-1].path=modelPath;
           console.log(model)
-        },
-        undefined,
-        function (error) {
-          console.error(error);
         }
       );
     });
@@ -49,29 +46,28 @@ function createModel(jsonData,scene) {
           model.rotation.set(data.gltf[i].rotation.x, data.gltf[i].rotation.y, data.gltf[i].rotation.z);
           model.scale.set(data.gltf[i].scale.x, data.gltf[i].scale.y, data.gltf[i].scale.z);
           scene.add(model);
-        },
-        undefined,
-        function (error) {
-          console.error(error);
         }
       );
     }
   }
 
-  export function uploadFileLoderGLTF(scene){
+  export function uploadFileLoderGLTF(scene,camera){
     document.getElementById('id_inputFile').addEventListener('change', function (event) {
       const file = event.target.files[0];
       const modelPath = URL.createObjectURL(file); 
       const loader = new GLTFLoader();
+
+      const cameraPosition = camera.position.clone();
+      const cameraDirection = camera.getWorldDirection(new THREE.Vector3());
+      
       loader.load(
         modelPath,
         function (gltf) {
           const model = gltf.scene;
+          model.position.copy(cameraPosition);
+          model.position.x+=cameraDirection.x*100;
+          model.position.z+=cameraDirection.z*100;
           scene.add(model);
-        },
-        undefined,
-        function (error) {
-          console.error(error);
         }
       );
     });

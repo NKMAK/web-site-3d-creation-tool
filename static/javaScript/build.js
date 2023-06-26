@@ -72,7 +72,7 @@ window.addEventListener('DOMContentLoaded', function(){
   createInputHTML(scene,camera,cssTransformControls);
 
   modelLoad(scene);
-  uploadFileLoderGLTF(scene);
+  uploadFileLoderGLTF(scene,camera);
   uploadImageLoder(scene);
 
   const light = new THREE.DirectionalLight(0xffffff); 
