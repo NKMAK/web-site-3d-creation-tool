@@ -1,3 +1,5 @@
 three.js-dev
 *.glb
 sceneJson
+*.jpg
+*.png

@@ -2,9 +2,23 @@ from flask import Flask, render_template,request,jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.route("/", methods=["GET"])
+def reflect():
+    return render_template("index.html")
+
+@app.route("/build", methods=["GET"])
+def build():
+    return render_template("build.html")
+
+@app.route("/uploadtest", methods=["GET"])
+def upload():
+    return render_template("uploadtest.html")
+
+@app.route("/upload", methods=["POST"])
+def upload_file():
+    file = request.files["file"]
+    file.save("uploads/" + file.filename)
+    return "ファイルが正常にアップロードされました"
 
 if __name__ == '__main__':
     app.debug = True
