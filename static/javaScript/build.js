@@ -7,9 +7,10 @@ import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js";
 import{transformControlsModeChage}from "./transformControlsMode.js";
 import {jsonExportSave} from"./jsonExportSave.js";
-import { modelLoad,gltfObjects, uploadFileLoderGLTF } from './modelLoad.js';
+import { modelLoad,gltfObjects, uploadFileLoderGLTF} from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./activeStateTransformControls.js";
 import{uploadImageLoder} from"./uploadImageLoder.js"
+import{uploadFiles} from"./uploadFiles.js"
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -111,8 +112,6 @@ window.addEventListener('DOMContentLoaded', function(){
       for(let i=0; i<intersects.length-1; i++){
         if(intersects[i].object.type=="TransformControlsPlane" || intersects[i].object.type=="webGLtransformControls"){
           clickedObject=intersects[i+1].object;
-          console.log("okokok")
-          console.log(clickedObject)
         }
         else{
           break;
@@ -138,6 +137,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 document.getElementById("id_jsonExportButton").addEventListener("click",function(){
   jsonExportSave(scene,gltfObjects);
+  uploadFiles();
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){

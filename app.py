@@ -14,10 +14,10 @@ def build():
 def upload():
     return render_template("uploadtest.html")
 
-@app.route("/upload", methods=["POST"])
+@app.route("/glb_upload", methods=["POST"])
 def upload_file():
     
-    files = request.files.getlist('files')
+    files = request.files.getlist("glb_files")
     for file in files:
         # ファイルの処理を行う
         print(file)
