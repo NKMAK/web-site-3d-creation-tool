@@ -16,9 +16,13 @@ def upload():
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
-    file = request.files["file"]
-    file.save("uploads/" + file.filename)
-    return "ファイルが正常にアップロードされました"
+    
+    files = request.files.getlist('files')
+    for file in files:
+        # ファイルの処理を行う
+        print(file)
+        file.save("uploads/" + file.filename)
+    return 'ファイルが正常にアップロードされました'
 
 if __name__ == '__main__':
     app.debug = True
