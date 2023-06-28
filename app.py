@@ -1,4 +1,6 @@
-from flask import Flask, render_template,request,jsonify
+import asyncio #pip install flask[async]
+from flask import Flask, render_template,request
+from controllers.file_controller import create_folder,upload_file
 
 app = Flask(__name__)
 
@@ -14,15 +16,16 @@ def build():
 def upload():
     return render_template("uploadtest.html")
 
-@app.route("/glb_upload", methods=["POST"])
-def upload_file():
+@app.route("/save_project", methods=["POST"])
+async def save_project():
+    project_name = request.form.get("project_name")
+    glb_files = request.files.getlist("glb_files")
     
-    files = request.files.getlist("glb_files")
-    for file in files:
-        # ファイルの処理を行う
-        print(file)
-        file.save("uploads/" + file.filename)
-    return 'ファイルが正常にアップロードされました'
+    loop = asyncio.get_event_loop()
+    await loop.run_in_executor(None, create_folder, project_name)
+    await loop.run_in_executor(None, upload_file,project_name,glb_files)
+    
+    return 'Success: Folder created and file saved'
 
 if __name__ == '__main__':
     app.debug = True

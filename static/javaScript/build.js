@@ -136,8 +136,11 @@ window.addEventListener('DOMContentLoaded', function(){
 });
 
 document.getElementById("id_jsonExportButton").addEventListener("click",function(){
-  jsonExportSave(scene,gltfObjects);
-  uploadFiles();
+  //
+  //
+  const projectName=prompt('名前を入力してください');
+  uploadFiles(projectName);
+  //jsonExportSave(scene,gltfObjects);
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
