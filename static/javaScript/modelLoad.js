@@ -3,7 +3,7 @@ import * as THREE from 'three';
 
 export let gltfObjects=[];
 
-const inputFile=document.getElementById("id_inputFile");
+const inputFile=document.getElementById("id_uploadGlb");
 
 function createModel(jsonData,scene) {
   const models = jsonData.modelPaths;

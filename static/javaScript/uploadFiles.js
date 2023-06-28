@@ -1,8 +1,8 @@
 const formData = new FormData();
-const inputFile=document.getElementById('id_inputFile');
+const uploadGlbFiles=document.getElementById("id_uploadGlb");
 
-inputFile.addEventListener("change", function(){
-  formData.append("glb_files", inputFile.files[0]);
+uploadGlbFiles.addEventListener("change", function(){
+  formData.append("glb_files", uploadGlbFiles.files[0]);
 })
 
 export function uploadFiles(projectName) {

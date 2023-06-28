@@ -8,11 +8,14 @@ def create_folder(project_name):
 
     try:
         os.makedirs(new_folder_path) 
-        return 'Success: Folder created'
+        os.makedirs(new_folder_path+"/glb") 
+        os.makedirs(new_folder_path+"/image") 
+        os.makedirs(new_folder_path+"/json") 
+        return "Success: Folder created"
     except OSError as e:
-        return 'Error: Failed to create folder'
+        return "Error: Failed to create folder"
     
 def upload_file(project_name,glb_files):
     for file in glb_files:
-        file.save("project/" +project_name+"/"+ file.filename)
-    return 'ファイルが正常にアップロードされました'
+        file.save("project/" +project_name+"/glb/"+ file.filename)
+    return "ファイルが正常にアップロードされました"
