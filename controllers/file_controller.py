@@ -15,7 +15,12 @@ def create_folder(project_name):
     except OSError as e:
         return "Error: Failed to create folder"
     
-def upload_file(project_name,glb_files):
+def upload_glb_file(project_name,glb_files):
     for file in glb_files:
         file.save("project/" +project_name+"/glb/"+ file.filename)
+    return "ファイルが正常にアップロードされました"
+
+def upload_image_file(project_name,image_files):
+    for file in image_files:
+        file.save("project/" +project_name+"/image/"+ file.filename)
     return "ファイルが正常にアップロードされました"

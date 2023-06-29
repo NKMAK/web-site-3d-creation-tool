@@ -1,6 +1,6 @@
 import asyncio #pip install flask[async]
 from flask import Flask, render_template,request
-from controllers.file_controller import create_folder,upload_file
+from controllers.file_controller import create_folder,upload_glb_file,upload_image_file
 
 app = Flask(__name__)
 
@@ -20,10 +20,12 @@ def upload():
 async def save_project():
     project_name = request.form.get("project_name")
     glb_files = request.files.getlist("glb_files")
+    image_files = request.files.getlist("image_files")
     
     loop = asyncio.get_event_loop()
     await loop.run_in_executor(None, create_folder, project_name)
-    await loop.run_in_executor(None, upload_file,project_name,glb_files)
+    await loop.run_in_executor(None, upload_glb_file,project_name,glb_files)
+    await loop.run_in_executor(None, upload_image_file,project_name,image_files)
     
     return 'Success: Folder created and file saved'
 

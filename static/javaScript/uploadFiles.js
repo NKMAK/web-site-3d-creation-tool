@@ -1,14 +1,19 @@
 const formData = new FormData();
 const uploadGlbFiles=document.getElementById("id_uploadGlb");
+const uploadImageFiles=document.getElementById("id_uploadImage");
 
 uploadGlbFiles.addEventListener("change", function(){
   formData.append("glb_files", uploadGlbFiles.files[0]);
+});
+
+uploadImageFiles.addEventListener("change", function(){
+  formData.append("image_files", uploadImageFiles.files[0]);
 })
 
 export function uploadFiles(projectName) {
   formData.append("project_name", projectName);
-  fetch('/save_project', {
-    method: 'POST',
+  fetch("/save_project", {
+    method: "POST",
     body: formData
   })
   .then(response => response.text())
@@ -16,7 +21,7 @@ export function uploadFiles(projectName) {
     console.log(result);
   })
   .catch(error => {
-    console.error('エラー:', error);
+    console.error("エラー:", error);
   });
 }
 
