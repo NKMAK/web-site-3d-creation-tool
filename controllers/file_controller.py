@@ -22,6 +22,6 @@ def upload_file(project_name,files):
     return "ファイルが正常にアップロードされました"
 
 def save_json_file(project_name,json_data):
-    with open("project/" +project_name+"/json/objects.json", 'w') as f:
+    with open("project/" +project_name+"/json/projectData.json", 'w') as f:
         f.write(json_data)
     return "File saved successfully"

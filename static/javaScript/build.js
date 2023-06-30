@@ -10,7 +10,7 @@ import { modelLoad,gltfObjects, uploadFileLoderGLTF} from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./activeStateTransformControls.js";
 import{uploadImageLoder} from"./uploadImageLoder.js";
 import{uploadFiles} from"./uploadFiles.js";
-import {jsonExportSave} from"./jsonExportSave.js";
+import {jsonExport} from"./jsonExport.js";
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -136,9 +136,9 @@ window.addEventListener('DOMContentLoaded', function(){
 });
 
 document.getElementById("id_jsonExportButton").addEventListener("click",async function(){
-  const projectName=prompt('名前を入力してください');
-  const json=await jsonExportSave(scene,gltfObjects);
-  await uploadFiles(projectName,json);
+  const projectName=prompt("名前を入力してください");
+  const project_data=await jsonExport(scene,gltfObjects);
+  await uploadFiles(projectName,project_data);
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){

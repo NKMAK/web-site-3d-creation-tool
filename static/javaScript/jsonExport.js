@@ -1,4 +1,4 @@
-export function jsonExportSave(scene,gltfObjects){
+export function jsonExport(scene,gltfObjects){
     const objects = []; 
 
     scene.traverse(function(object) {
@@ -7,7 +7,7 @@ export function jsonExportSave(scene,gltfObjects){
         }
     });
     
-    const data ={
+    const project_data ={
       html: objects.map(function(object) {
         return {
           id: object.element.id,
@@ -49,14 +49,20 @@ export function jsonExportSave(scene,gltfObjects){
             z: gltfObject.scale.z
           }
         };
-      })
+      }),
+      project_require_files:{
+        glb_paths:[],
+        image_paths:[]
+      }
     }
-
       
-      const json = JSON.stringify(data);
-      console.log(json)
-      return json;
+    return project_data;
+    
+    //const json = JSON.stringify(prpject_data);
+    //console.log(json)
       /*a.href = URL.createObjectURL(file);
+          var imagePathArray = ["test.path", "test2.path"];
+    prpject_data.project_require_files["image"] =imagePathArray;
       console.log(a.href)
       a.download = 'data.json';
       a.click();*/
