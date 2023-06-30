@@ -10,8 +10,10 @@ uploadImageFiles.addEventListener("change", function(){
   formData.append("image_files", uploadImageFiles.files[0]);
 })
 
-export function uploadFiles(projectName) {
+export function uploadFiles(projectName,json) {
   formData.append("project_name", projectName);
+  formData.append("json_data", json);
+
   fetch("/save_project", {
     method: "POST",
     body: formData

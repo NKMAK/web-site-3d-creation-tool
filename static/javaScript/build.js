@@ -6,11 +6,11 @@ import{create3dObjElement} from"./create3dObjElement.js";
 import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js";
 import{transformControlsModeChage}from "./transformControlsMode.js";
-import {jsonExportSave} from"./jsonExportSave.js";
 import { modelLoad,gltfObjects, uploadFileLoderGLTF} from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./activeStateTransformControls.js";
-import{uploadImageLoder} from"./uploadImageLoder.js"
-import{uploadFiles} from"./uploadFiles.js"
+import{uploadImageLoder} from"./uploadImageLoder.js";
+import{uploadFiles} from"./uploadFiles.js";
+import {jsonExportSave} from"./jsonExportSave.js";
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -135,12 +135,10 @@ window.addEventListener('DOMContentLoaded', function(){
 
 });
 
-document.getElementById("id_jsonExportButton").addEventListener("click",function(){
-  //
-  //
+document.getElementById("id_jsonExportButton").addEventListener("click",async function(){
   const projectName=prompt('名前を入力してください');
-  uploadFiles(projectName);
-  //jsonExportSave(scene,gltfObjects);
+  const json=await jsonExportSave(scene,gltfObjects);
+  await uploadFiles(projectName,json);
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){

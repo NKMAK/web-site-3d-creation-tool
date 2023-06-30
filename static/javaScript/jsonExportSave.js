@@ -5,9 +5,7 @@ export function jsonExportSave(scene,gltfObjects){
         if(object.element!=undefined&&object.type=="Object3D"){
             objects.push(object);
         }
-        console.log(object)
     });
-    console.log(gltfObjects)
     
     const data ={
       html: objects.map(function(object) {
@@ -56,10 +54,10 @@ export function jsonExportSave(scene,gltfObjects){
 
       
       const json = JSON.stringify(data);
-      const a = document.createElement('a');
-      const file = new Blob([json], {type: 'application/json'});
-      a.href = URL.createObjectURL(file);
+      console.log(json)
+      return json;
+      /*a.href = URL.createObjectURL(file);
       console.log(a.href)
       a.download = 'data.json';
-      a.click();
+      a.click();*/
 }
