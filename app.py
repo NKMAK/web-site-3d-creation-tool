@@ -1,11 +1,19 @@
 import asyncio #pip install flask[async]
+import json
 from flask import Flask, render_template,request
 from controllers.file_controller import create_folder,upload_file,save_json_file
 app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def reflect():
-    return render_template("index.html")
+    project_name=request.args.get("project")
+
+    if project_name is None:
+        return render_template("index.html",project_json=None)
+
+    with open("static/project/"+project_name+"/json/projectData.json") as f:
+        project_json = json.load(f)
+    return render_template("index.html",project_json=project_json)
 
 @app.route("/build", methods=["GET"])
 def build():

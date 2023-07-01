@@ -1,6 +1,6 @@
 export function jsonExport(scene,gltfObjects){
     const objects = []; 
-
+    console.log(gltfObjects)
     scene.traverse(function(object) {
         if(object.element!=undefined&&object.type=="Object3D"){
             objects.push(object);
@@ -49,10 +49,11 @@ export function jsonExport(scene,gltfObjects){
             z: gltfObject.scale.z
           }
         };
-      }),
-      project_require_files:{
+      }),//project_require_dataいらない　 path:gltfObject.pathにpathを入れる画像も上のJSON構造で作る
+      project_require_data:{
         glb_paths:[],
         image_paths:[]
+        //project_name:,
       }
     }
       

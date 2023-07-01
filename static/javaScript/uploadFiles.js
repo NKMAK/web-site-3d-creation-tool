@@ -16,8 +16,9 @@ uploadImageFiles.addEventListener("change", function(){
 })
 
 export function uploadFiles(projectName,project_data) {
-  project_data.project_require_files.image_paths =image_paths;
-  project_data.project_require_files.glb_paths =glb_paths;
+  project_data.project_require_data.image_paths =image_paths;
+  project_data.project_require_data.glb_paths =glb_paths;
+  project_data.project_require_data.project_name =projectName;
 
   const json_data = JSON.stringify(project_data);
 

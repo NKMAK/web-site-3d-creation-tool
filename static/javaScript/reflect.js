@@ -3,6 +3,7 @@ import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {CameraController}from"./cameraController.js";
 import{modelJsonLoad}from"./modelLoad.js"
+console.log(project_json)
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -41,7 +42,7 @@ const cameraControls = new CameraController(camera, cssRender,orbitControls);
 window.addEventListener('DOMContentLoaded', function(){
 
   function init(){
-    fetch('static/sceneJson/data (4).json')
+    fetch("static/project/"+project_json.project_require_data.project_name+"/json/projectData.json")
     .then(response => response.json())
     .then(data => {
       for (let i = 0; i < data.html.length; i++) {
