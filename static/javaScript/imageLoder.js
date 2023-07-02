@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-export function uploadImageLoder(scene,camera){
+export function imageLoder(scene,camera){
     document.getElementById('id_uploadImage').addEventListener('change', function (event) {
         const file = event.target.files[0];
         const reader = new FileReader();
