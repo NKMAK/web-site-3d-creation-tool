@@ -42,22 +42,19 @@ const cameraControls = new CameraController(camera, cssRender,orbitControls);
 window.addEventListener('DOMContentLoaded', function(){
 
   function init(){
-    fetch("static/project/"+project_json.project_require_data.project_name+"/json/projectData.json")
-    .then(response => response.json())
-    .then(data => {
-      for (let i = 0; i < data.html.length; i++) {
-          const element = document.createElement(data.html[i].tagName);
-          element.innerHTML = data.html[i].innerHTML;
-        
-          const object = new CSS3DObject(element);
-          object.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
-          object.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
-          object.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
-        
-          scene.add(object);
-        }
-      modelJsonLoad(scene, data);
-    });
+    const data=project_json;
+    for (let i = 0; i < data.html.length; i++) {
+      const element = document.createElement(data.html[i].tagName);
+      element.innerHTML = data.html[i].innerHTML;
+    
+      const object = new CSS3DObject(element);
+      object.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
+      object.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
+      object.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
+    
+      scene.add(object);
+    }
+    modelJsonLoad(scene, data);
   }
   var particles = [];
 

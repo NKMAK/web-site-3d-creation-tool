@@ -40,8 +40,9 @@ export function modelJsonLoad(scene,data) {
 
   const loader = new GLTFLoader();
   for(let i=0; i<data.gltf.length; i++){
+    const glbPath="static/project/"+data.project_require_data.project_name+"/glb/"+data.gltf[i].path;
     loader.load(
-      data.gltf[i].path,
+      glbPath,
       function (gltf) {
         const model = gltf.scene;
         model.position.set(data.gltf[i].position.x, data.gltf[i].position.y, data.gltf[i].position.z);
@@ -69,6 +70,8 @@ export function uploadFileLoderGLTF(scene,camera){
         model.position.copy(cameraPosition);
         model.position.x+=cameraDirection.x*100;
         model.position.z+=cameraDirection.z*100;
+        gltfObjects.push(model);
+        gltfObjects[gltfObjects.length-1].path=file.name;
         scene.add(model);
       }
     );
