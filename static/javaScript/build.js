@@ -20,8 +20,9 @@ webGLRender.setSize(window.innerWidth, window.innerHeight);
 const cssRender = new CSS3DRenderer();
 cssRender.setSize(window.innerWidth, window.innerHeight);
 cssRender.domElement.style.top = 0;
-container.appendChild(cssRender.domElement);
 container.appendChild(webGLRender.domElement);
+container.appendChild(cssRender.domElement);
+
 
 const canvas = document.createElement('canvas');
 const canvasWidth = window.innerWidth;
