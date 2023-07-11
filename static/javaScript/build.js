@@ -20,9 +20,8 @@ webGLRender.setSize(window.innerWidth, window.innerHeight);
 const cssRender = new CSS3DRenderer();
 cssRender.setSize(window.innerWidth, window.innerHeight);
 cssRender.domElement.style.top = 0;
-container.appendChild(webGLRender.domElement);
 container.appendChild(cssRender.domElement);
-
+cssRender.domElement.appendChild(webGLRender.domElement);
 
 const canvas = document.createElement('canvas');
 const canvasWidth = window.innerWidth;
@@ -33,7 +32,7 @@ canvas.height = canvasHeight;
 container.appendChild(canvas);
 
 cssRender.domElement.style.zIndex = '0';
-webGLRender.domElement.style.zIndex = '0';
+webGLRender.domElement.style.zIndex = '1';
 cssRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.top = 0;
