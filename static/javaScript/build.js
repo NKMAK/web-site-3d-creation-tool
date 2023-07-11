@@ -2,42 +2,42 @@ import * as THREE from 'three';
 import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {TransformControls} from"TransformControls";
-import{create3dObjElement} from"./create3dObjElement.js";
 import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js";
 import{transformControlsModeChage}from "./transformControlsMode.js";
 import { modelLoad,gltfObjects, uploadFileLoderGLTF} from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./activeStateTransformControls.js";
-import{imageLoder} from"./imageLoder.js";
+import{imageLoder,imageObjects} from"./imageLoder.js";
 import{uploadFiles} from"./uploadFiles.js";
 import {jsonExport} from"./jsonExport.js";
 
 const container=document.getElementById("id_canvasContainer");
 
-const webGLRender = new THREE.WebGLRenderer();
-webGLRender.setSize(window.innerWidth*0.75, window.innerHeight);
-container.appendChild(webGLRender.domElement);
+const webGLRender = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+webGLRender.setClearColor( 0x000000, 0 );
+webGLRender.setSize(window.innerWidth, window.innerHeight);
 
 const cssRender = new CSS3DRenderer();
-cssRender.setSize(window.innerWidth*0.75, window.innerHeight);
-
+cssRender.setSize(window.innerWidth, window.innerHeight);
 cssRender.domElement.style.top = 0;
 container.appendChild(cssRender.domElement);
+container.appendChild(webGLRender.domElement);
 
 const canvas = document.createElement('canvas');
-const canvasWidth = window.innerWidth * 0.75;
+const canvasWidth = window.innerWidth;
 const canvasHeight = window.innerHeight;
 canvas.width = canvasWidth;
 canvas.height = canvasHeight;
 
 container.appendChild(canvas);
 
-cssRender.domElement.style.zIndex = '1';
+cssRender.domElement.style.zIndex = '0';
 webGLRender.domElement.style.zIndex = '0';
 cssRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.top = 0;
 cssRender.domElement.style.top = 0;
+
 
 const scene = new THREE.Scene();
 
@@ -62,9 +62,6 @@ const webGLCameraControls = new CameraController(camera, webGLRender,webGLOrbitC
 cssActiveTransformControls(cssTransformControls,webGLtransformControls);
 
 window.addEventListener('DOMContentLoaded', function(){
-  
-  const object=create3dObjElement("<button id='test'>aa</button>",camera.position,scene,cssTransformControls);
-
   transformControlsModeChage(cssTransformControls,webGLtransformControls);
   cssTransformControls.name="TransformControls";
   webGLtransformControls.name="TransformControls";
@@ -81,14 +78,14 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(light);
 
   function animate() {
-
     requestAnimationFrame(animate);
     cssCameraControls.cameraPositionUpdate();
     webGLCameraControls.cameraPositionUpdate();
     //cssOrbitControls.update();
     //webGLOrbitControls.update();
-    cssRender.render(scene, camera);
     webGLRender.render(scene,camera);
+    cssRender.render(scene, camera);
+
   }
   animate();
 
@@ -137,7 +134,7 @@ window.addEventListener('DOMContentLoaded', function(){
 
 document.getElementById("id_jsonExportButton").addEventListener("click",async function(){
   const projectName=prompt("名前を入力してください");
-  const project_data=await jsonExport(scene,gltfObjects);
+  const project_data=await jsonExport(scene,gltfObjects,imageObjects);
   await uploadFiles(projectName,project_data);
 });
 

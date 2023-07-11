@@ -1,6 +1,5 @@
-export function jsonExport(scene,gltfObjects){
+export function jsonExport(scene,gltfObjects,imageObjects){
     const objects = []; 
-    console.log(gltfObjects)
     scene.traverse(function(object) {
         if(object.element!=undefined&&object.type=="Object3D"){
             objects.push(object);
@@ -49,7 +48,28 @@ export function jsonExport(scene,gltfObjects){
             z: gltfObject.scale.z
           }
         };
-      }),//project_require_dataいらない　 path:gltfObject.pathにpathを入れる画像も上のJSON構造で作る
+      }),
+      image:imageObjects.map(function(imageObject) {
+        return {
+          path:imageObject.path,
+          position: {
+            x: imageObject.position.x,
+            y: imageObject.position.y,
+            z: imageObject.position.z
+          },
+          rotation: {
+            x: imageObject.rotation.x,
+            y: imageObject.rotation.y,
+            z: imageObject.rotation.z
+          },
+          scale: {
+            x: imageObject.scale.x,
+            y: imageObject.scale.y,
+            z: imageObject.scale.z
+          }
+        };
+      }),
+      //project_require_dataいらない　 path:gltfObject.pathにpathを入れる画像も上のJSON構造で作る
       project_require_data:{
         glb_paths:[],
         image_paths:[]

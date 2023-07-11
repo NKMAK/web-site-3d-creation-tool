@@ -16,9 +16,14 @@
   #id_sidebar {
     height: 100%;
     width: 25%;
+    z-index: 2;
   }
 
   #id_inputHTML{
     width: 90%;
     height: 50%;
+  }
+
+  #id_canvasContainer{
+    width: 80%;
   }

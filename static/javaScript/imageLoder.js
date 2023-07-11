@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+export let imageObjects=[];
+
 export function imageLoder(scene,camera){
     document.getElementById('id_uploadImage').addEventListener('change', function (event) {
         const file = event.target.files[0];
@@ -28,6 +30,8 @@ export function imageLoder(scene,camera){
                 mesh.position.z+=cameraDirection.z*100;
 
                 scene.add(mesh);
+                imageObjects.push(mesh);
+                imageObjects[imageObjects.length-1].path=file.name;
             }
   
         };
