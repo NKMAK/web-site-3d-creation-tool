@@ -5,7 +5,7 @@ export let gltfObjects=[];
 
 const inputFile=document.getElementById("id_uploadGlb");
 
-function createModel(jsonData,scene) {
+export function createModel(jsonData,scene) {
   const models = jsonData.modelPaths;
   models.forEach(function (modelPath) {
     const loader = new GLTFLoader();
@@ -16,7 +16,6 @@ function createModel(jsonData,scene) {
         scene.add(model);
         gltfObjects.push(model);
         gltfObjects[gltfObjects.length-1].path=modelPath;
-        console.log(model)
       }
     );
   });
@@ -49,6 +48,8 @@ export function modelJsonLoad(scene,data) {
         model.rotation.set(data.gltf[i].rotation.x, data.gltf[i].rotation.y, data.gltf[i].rotation.z);
         model.scale.set(data.gltf[i].scale.x, data.gltf[i].scale.y, data.gltf[i].scale.z);
         scene.add(model);
+
+        console.log(model.position);
       }
     );
   }
@@ -72,7 +73,6 @@ export function uploadFileLoderGLTF(scene,camera){
         model.position.z+=cameraDirection.z*100;
         gltfObjects.push(model);
         gltfObjects[gltfObjects.length-1].path=file.name;
-        console.log(gltfObjects);
         scene.add(model);
       }
     );

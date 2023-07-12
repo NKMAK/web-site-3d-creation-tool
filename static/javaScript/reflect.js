@@ -3,7 +3,7 @@ import { CSS3DRenderer, CSS3DObject } from 'CSS3DRenderer';
 import {OrbitControls} from "OrbitControls";
 import {CameraController}from"./cameraController.js";
 import{modelJsonLoad}from"./modelLoad.js"
-console.log(project_json)
+import{imageJsonLoad}from"./imageLoder.js"
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -55,6 +55,7 @@ window.addEventListener('DOMContentLoaded', function(){
       scene.add(object);
     }
     modelJsonLoad(scene, data);
+    imageJsonLoad(scene,data);
     /*
     fetch("static/project/"+project_json.project_require_data.project_name+"/json/projectData.json")
     .then(response => response.json())
@@ -62,6 +63,8 @@ window.addEventListener('DOMContentLoaded', function(){
 
     });*/
   }
+
+
   var particles = [];
 
   function createParticle() {

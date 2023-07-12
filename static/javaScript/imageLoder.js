@@ -14,7 +14,7 @@ export function imageLoder(scene,camera){
                 const cameraPosition = camera.position.clone();
                 const cameraDirection = camera.getWorldDirection(new THREE.Vector3());
 
-                const aspectRatio = image.width / (image.height*0.75); 
+                const aspectRatio = image.width / image.height; 
         
                 const textureLoader = new THREE.TextureLoader();
                 const texture = textureLoader.load(imageUrl);
@@ -39,4 +39,25 @@ export function imageLoder(scene,camera){
         // 画像ファイルをData URL形式で読み込む
         reader.readAsDataURL(file);
       });
+  }
+
+  export function imageJsonLoad(scene,data) {
+    console.log(data)
+
+    for(let i=0; i<data.image.length; i++){
+        const imagePath="static/project/"+data.project_require_data.project_name+"/image/"+data.image[i].path;
+
+        const texLoader = new THREE.TextureLoader();
+        texLoader.load(imagePath, 
+            texture => {
+                const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
+                const geometry = new THREE.PlaneGeometry(texture.image.width/2, texture.image.height/2);
+                const mesh = new THREE.Mesh(geometry, material);
+                
+                mesh.position.set(data.image[i].position.x,data.image[i].position.y,data.image[i].position.z);
+    
+                scene.add(mesh);
+            }
+        );
+    }
   }
