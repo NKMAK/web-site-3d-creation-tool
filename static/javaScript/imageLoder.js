@@ -55,7 +55,8 @@ export function imageLoder(scene,camera){
                 const mesh = new THREE.Mesh(geometry, material);
                 
                 mesh.position.set(data.image[i].position.x,data.image[i].position.y,data.image[i].position.z);
-                console.log(data.image[i].size)
+                mesh.rotation.set(data.image[i].rotation.x, data.image[i].rotation.y, data.image[i].rotation.z);
+                mesh.scale.set(data.image[i].scale.x, data.image[i].scale.y, data.image[i].scale.z);
                 scene.add(mesh);
             }
         );
