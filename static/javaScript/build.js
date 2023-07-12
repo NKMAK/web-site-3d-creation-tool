@@ -31,12 +31,13 @@ canvas.height = canvasHeight;
 
 container.appendChild(canvas);
 
-cssRender.domElement.style.zIndex = '0';
-webGLRender.domElement.style.zIndex = '1';
+cssRender.domElement.style.zIndex = '1';
+webGLRender.domElement.style.zIndex = '0';
 cssRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.top = 0;
 cssRender.domElement.style.top = 0;
+webGLRender.domElement.style.pointerEvents="none";
 
 
 const scene = new THREE.Scene();
@@ -96,6 +97,7 @@ window.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
+    console.log("clixk")
     event.preventDefault();
     mouse.x = (event.clientX / cssRender.domElement.clientWidth) * 2 - 1;
     mouse.y = -(event.clientY / cssRender.domElement.clientHeight) * 2 + 1;
@@ -147,6 +149,7 @@ document.getElementById("id_modeHTMLButton").addEventListener("click",function()
   webGLRender.domElement.style.opacity = 1.0;
   cssRender.domElement.style.zIndex = '1';
   webGLRender.domElement.style.zIndex = '0';
+  webGLRender.domElement.style.pointerEvents="none";
   cssActiveTransformControls(cssTransformControls,webGLtransformControls);
 });
 
@@ -154,6 +157,7 @@ document.getElementById("id_modeModelButton").addEventListener("click",function(
   webGLRender.domElement.style.opacity = 0.8;
   cssRender.domElement.style.zIndex = '0';
   webGLRender.domElement.style.zIndex = '1';
+  webGLRender.domElement.style.pointerEvents="auto";
   webGLActiveTransformControls(cssTransformControls,webGLtransformControls);
 });
 
