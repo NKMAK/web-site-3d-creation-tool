@@ -51,11 +51,11 @@ export function imageLoder(scene,camera){
         texLoader.load(imagePath, 
             texture => {
                 const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
-                const geometry = new THREE.PlaneGeometry(texture.image.width/2, texture.image.height/2);
+                const geometry = new THREE.PlaneGeometry(data.image[i].size.width, data.image[i].size.height);
                 const mesh = new THREE.Mesh(geometry, material);
                 
                 mesh.position.set(data.image[i].position.x,data.image[i].position.y,data.image[i].position.z);
-    
+                console.log(data.image[i].size)
                 scene.add(mesh);
             }
         );

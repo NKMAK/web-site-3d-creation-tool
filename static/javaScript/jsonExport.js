@@ -50,6 +50,7 @@ export function jsonExport(scene,gltfObjects,imageObjects){
         };
       }),
       image:imageObjects.map(function(imageObject) {
+        console.log(imageObject);
         return {
           path:imageObject.path,
           position: {
@@ -66,6 +67,10 @@ export function jsonExport(scene,gltfObjects,imageObjects){
             x: imageObject.scale.x,
             y: imageObject.scale.y,
             z: imageObject.scale.z
+          },
+          size:{
+            width: imageObject.geometry.parameters.width,
+            height: imageObject.geometry.parameters.height
           }
         };
       }),
