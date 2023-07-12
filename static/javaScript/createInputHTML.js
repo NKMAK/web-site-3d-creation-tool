@@ -65,16 +65,12 @@ function onClick(event,scene,transformControls,element){
     if (uuid != undefined || uuid2 != undefined  ) {
         scene.traverse(function (object) {
           if (object.uuid == uuid) {
-            transformControls.attach(object);
+            transformControls.attach(object.parent);
             scene.add(transformControls)
-            console.log(transformControls)
           }
           else if(object.uuid == uuid2){
-            console.log("ok")
-            transformControls.attach(object);
-  
+            transformControls.attach(object.parent);
             scene.add(transformControls)
-            console.log(transformControls)
           }
         });
     }
