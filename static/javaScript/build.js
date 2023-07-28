@@ -79,12 +79,11 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(light);
   const ambientLight = new THREE.AmbientLight(0xcccccc, 0.5); 
   scene.add(ambientLight); 
-  // 太陽光 
   const light2 = new THREE.DirectionalLight(0xFFFFFF, 1); 
   scene.add(light2); 
-  // ポイントライト 
   const pointLight = new THREE.PointLight(0xffffff, 0.8); 
   scene.add(pointLight); 
+  
   function animate() {
     requestAnimationFrame(animate);
     cssCameraControls.cameraPositionUpdate();
