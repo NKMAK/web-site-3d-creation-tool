@@ -1,7 +1,7 @@
 import asyncio #pip install flask[async]
 import json
 from flask import Flask, render_template,request
-from controllers.file_controller import create_folder,upload_file,save_json_file
+from controllers.file_controller import create_folder,upload_file,save_json_file,save_css
 app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
@@ -27,6 +27,8 @@ def upload():
 async def save_project():
     project_name = request.form.get("project_name")
     json_data =request.form.get("json_data")
+    css_text = request.form.get("css_text")
+    
     glb_files = request.files.getlist("glb_files")
     image_files = request.files.getlist("image_files")
     
@@ -34,6 +36,7 @@ async def save_project():
     await loop.run_in_executor(None, create_folder, project_name)
     await loop.run_in_executor(None, upload_file,project_name+"/glb/",glb_files)
     await loop.run_in_executor(None, upload_file,project_name+"/image/",image_files)
+    await loop.run_in_executor(None, save_css,project_name,css_text)
     await loop.run_in_executor(None, save_json_file,project_name,json_data)
     
     return 'Success: Folder created and file saved'

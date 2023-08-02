@@ -12,6 +12,7 @@ def create_folder(project_name):
         os.makedirs(new_folder_path+"/glb") 
         os.makedirs(new_folder_path+"/image") 
         os.makedirs(new_folder_path+"/json") 
+        os.makedirs(new_folder_path+"/css") 
         return "Success: Folder created"
     except OSError as e:
         return "Error: Failed to create folder"
@@ -24,4 +25,9 @@ def upload_file(project_name,files):
 def save_json_file(project_name,json_data):
     with open("static/project/" +project_name+"/json/projectData.json", 'w') as f:
         f.write(json_data)
+    return "File saved successfully"
+
+def save_css(project_name,css_text):
+    with open("static/project/" +project_name+"/css/project.css", 'w') as f:
+        f.write(css_text)
     return "File saved successfully"

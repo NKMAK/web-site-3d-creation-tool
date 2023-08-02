@@ -16,6 +16,8 @@ uploadImageFiles.addEventListener("change", function(){
 })
 
 export function uploadFiles(projectName,project_data) {
+  const inputCssText=document.getElementById("id_inputCSS").value;
+
   project_data.project_require_data.image_paths =image_paths;
   project_data.project_require_data.glb_paths =glb_paths;
   project_data.project_require_data.project_name =projectName;
@@ -24,6 +26,7 @@ export function uploadFiles(projectName,project_data) {
 
   formData.append("project_name", projectName);
   formData.append("json_data", json_data);
+  formData.append("css_text", inputCssText);
 
   fetch("/save_project", {
     method: "POST",
