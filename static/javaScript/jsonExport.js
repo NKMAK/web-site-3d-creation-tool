@@ -13,19 +13,19 @@ export function jsonExport(scene,gltfObjects,imageObjects){
           tagName: object.element.tagName,
           innerHTML: object.element.innerHTML,
           position: {
-            x: object.position.x,
-            y: object.position.y,
-            z: object.position.z
+            x: object.parent.position.x,
+            y: object.parent.position.y,
+            z: object.parent.position.z
           },
           rotation: {
-            x: object.rotation.x,
-            y: object.rotation.y,
-            z: object.rotation.z
+            x: object.parent.rotation.x,
+            y: object.parent.rotation.y,
+            z: object.parent.rotation.z
           },
           scale: {
-            x: object.scale.x,
-            y: object.scale.y,
-            z: object.scale.z
+            x: object.parent.scale.x,
+            y: object.parent.scale.y,
+            z: object.parent.scale.z
           }
         };
       }),

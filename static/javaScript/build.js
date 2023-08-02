@@ -83,7 +83,6 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(light2); 
   const pointLight = new THREE.PointLight(0xffffff, 0.8); 
   scene.add(pointLight); 
-  
   function animate() {
     requestAnimationFrame(animate);
     cssCameraControls.cameraPositionUpdate();
@@ -103,7 +102,6 @@ window.addEventListener('DOMContentLoaded', function(){
       return;
     }
 
-    console.log("clixk")
     event.preventDefault();
     mouse.x = (event.clientX / cssRender.domElement.clientWidth) * 2 - 1;
     mouse.y = -(event.clientY / cssRender.domElement.clientHeight) * 2 + 1;
