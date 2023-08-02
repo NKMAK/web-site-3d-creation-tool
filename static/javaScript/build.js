@@ -9,7 +9,7 @@ import { modelLoad,gltfObjects, uploadFileLoderGLTF} from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./activeStateTransformControls.js";
 import{imageLoder,imageObjects} from"./imageLoder.js";
 import{uploadFiles} from"./uploadFiles.js";
-import {jsonExport} from"./jsonExport.js";
+import {jsonExport} from"./export.js";
 
 const container=document.getElementById("id_canvasContainer");
 
