@@ -30,6 +30,7 @@ export function jsonExport(scene,gltfObjects,imageObjects){
         };
       }),
       gltf:gltfObjects.map(function(gltfObject) {
+        console.log(gltfObject)
         return {
           path:gltfObject.path,
           position: {

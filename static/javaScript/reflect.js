@@ -45,6 +45,8 @@ window.addEventListener('DOMContentLoaded', function(){
     const data=project_json;
     for (let i = 0; i < data.html.length; i++) {
       const element = document.createElement(data.html[i].tagName);
+      const group = new THREE.Group();
+
       element.innerHTML = data.html[i].innerHTML;
     
       const object = new CSS3DObject(element);
@@ -52,7 +54,29 @@ window.addEventListener('DOMContentLoaded', function(){
       object.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
       object.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
     
-      scene.add(object);
+      group.add(object);
+      const observer = new MutationObserver(function(mutationsList, observer) {
+        for (let mutation of mutationsList) {
+          if (mutation.type == "attributes" && mutation.attributeName == "style" && element.offsetHeight != 0) {
+
+            const material = new THREE.MeshPhongMaterial({
+                opacity: 0.1,
+                color: new THREE.Color(0x000000),
+                side: THREE.DoubleSide,
+            });
+            const geometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(camera.position.x, camera.position.y,camera.position.z-100);
+
+            group.add(mesh);
+            observer.disconnect();
+            break;
+          }
+        }
+      });
+      
+      observer.observe(element, { attributes: true });
+      scene.add(group);
     }
     modelJsonLoad(scene, data);
     imageJsonLoad(scene,data);

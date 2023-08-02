@@ -110,7 +110,7 @@ window.addEventListener('DOMContentLoaded', function(){
     const intersects = raycaster.intersectObjects(scene.children, true);
     if (intersects.length > 0) {
       let clickedObject = intersects[0].object;
-      const parentGroup = clickedObject.parent;
+      let parentGroup = clickedObject.parent;
 
       for(let i=0; i<intersects.length-1; i++){
         if(intersects[i].object.type=="TransformControlsPlane" || intersects[i].object.type=="webGLtransformControls"){
@@ -122,11 +122,14 @@ window.addEventListener('DOMContentLoaded', function(){
       }
 
       if (parentGroup && parentGroup.isGroup) {
-        console.log("intersects")
+        console.log(parentGroup.parent)
+        console.log(parentGroup)
+        parentGroup=parentGroup.parent.type=="Scene" ? parentGroup : parentGroup.parent;
         webGLtransformControls.attach(parentGroup);
         scene.add(webGLtransformControls)
       }
       else{
+        console.log(clickedObject)
         webGLtransformControls.attach(clickedObject);
         scene.add(webGLtransformControls)
       }
