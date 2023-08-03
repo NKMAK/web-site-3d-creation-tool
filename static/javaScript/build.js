@@ -23,6 +23,8 @@ cssRender.domElement.style.top = 0;
 container.appendChild(cssRender.domElement);
 cssRender.domElement.appendChild(webGLRender.domElement);
 
+let is_cssMode=true;
+
 const canvas = document.createElement('canvas');
 const canvasWidth = window.innerWidth;
 const canvasHeight = window.innerHeight;
@@ -85,13 +87,11 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(pointLight); 
   function animate() {
     requestAnimationFrame(animate);
-    cssCameraControls.cameraPositionUpdate();
+
     webGLCameraControls.cameraPositionUpdate();
-    //cssOrbitControls.update();
-    //webGLOrbitControls.update();
+    cssCameraControls.cameraPositionUpdate();
     webGLRender.render(scene,camera);
     cssRender.render(scene, camera);
-
   }
   animate();
 
@@ -158,6 +158,7 @@ document.getElementById("id_modeHTMLButton").addEventListener("click",function()
   webGLRender.domElement.style.zIndex = '0';
   webGLRender.domElement.style.pointerEvents="none";
   cssActiveTransformControls(cssTransformControls,webGLtransformControls);
+  is_cssMode=true;
 });
 
 document.getElementById("id_modeModelButton").addEventListener("click",function(){
@@ -166,5 +167,6 @@ document.getElementById("id_modeModelButton").addEventListener("click",function(
   webGLRender.domElement.style.zIndex = '1';
   webGLRender.domElement.style.pointerEvents="auto";
   webGLActiveTransformControls(cssTransformControls,webGLtransformControls);
+  is_cssMode=false;
 });
 

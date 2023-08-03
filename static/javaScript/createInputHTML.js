@@ -33,7 +33,7 @@ function create3dObjElement(inputDom,position,scene,transformControls){
           if (mutation.type == "attributes" && mutation.attributeName == "style" && element.offsetHeight != 0) {
 
             const material = new THREE.MeshPhongMaterial({
-                opacity: 0.1,
+                opacity: 0,
                 color: new THREE.Color(0x000000),
                 side: THREE.DoubleSide,
             });
