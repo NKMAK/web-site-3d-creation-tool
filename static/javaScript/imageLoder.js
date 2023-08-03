@@ -45,7 +45,7 @@ export function imageLoder(scene,camera){
     console.log(data)
 
     for(let i=0; i<data.image.length; i++){
-        const imagePath="static/project/"+data.project_require_data.project_name+"/image/"+data.image[i].path;
+        const imagePath="static/project/"+data.project_name+"/image/"+data.image[i].path;
 
         const texLoader = new THREE.TextureLoader();
         texLoader.load(imagePath, 

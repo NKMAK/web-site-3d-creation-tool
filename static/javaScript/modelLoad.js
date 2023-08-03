@@ -39,7 +39,7 @@ export function modelJsonLoad(scene,data) {
 
   const loader = new GLTFLoader();
   for(let i=0; i<data.gltf.length; i++){
-    const glbPath="static/project/"+data.project_require_data.project_name+"/glb/"+data.gltf[i].path;
+    const glbPath="static/project/"+data.project_name+"/glb/"+data.gltf[i].path;
     loader.load(
       glbPath,
       function (gltf) {

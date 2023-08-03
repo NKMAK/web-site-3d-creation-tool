@@ -80,12 +80,6 @@ window.addEventListener('DOMContentLoaded', function(){
     }
     modelJsonLoad(scene, data);
     imageJsonLoad(scene,data);
-    /*
-    fetch("static/project/"+project_json.project_require_data.project_name+"/json/projectData.json")
-    .then(response => response.json())
-    .then(data => {
-
-    });*/
   }
 
 

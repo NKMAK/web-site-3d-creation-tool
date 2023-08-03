@@ -30,7 +30,6 @@ export function jsonExport(scene,gltfObjects,imageObjects){
         };
       }),
       gltf:gltfObjects.map(function(gltfObject) {
-        console.log(gltfObject)
         return {
           path:gltfObject.path,
           position: {
@@ -51,7 +50,6 @@ export function jsonExport(scene,gltfObjects,imageObjects){
         };
       }),
       image:imageObjects.map(function(imageObject) {
-        console.log(imageObject);
         return {
           path:imageObject.path,
           position: {
@@ -75,12 +73,6 @@ export function jsonExport(scene,gltfObjects,imageObjects){
           }
         };
       }),
-      //project_require_dataいらない　 path:gltfObject.pathにpathを入れる画像も上のJSON構造で作る
-      project_require_data:{
-        glb_paths:[],
-        image_paths:[]
-        //project_name:,
-      }
     }
       
     return project_data;
