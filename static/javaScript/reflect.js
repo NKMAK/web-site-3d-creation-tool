@@ -7,7 +7,7 @@ import{imageJsonLoad}from"./imageLoder.js"
 
 const container=document.getElementById("id_canvasContainer");
 
-const webGLRender = new THREE.WebGLRenderer();
+const webGLRender = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 webGLRender.setSize(window.innerWidth, window.innerHeight);
 container.appendChild(webGLRender.domElement);
 
@@ -25,11 +25,12 @@ canvas.height = canvasHeight;
 
 container.appendChild(canvas);
 
-cssRender.domElement.style.zIndex = '1';
-webGLRender.domElement.style.zIndex = '0';
+cssRender.domElement.style.zIndex = '0';
+webGLRender.domElement.style.zIndex = '1';
 webGLRender.domElement.style.position = 'absolute';
 cssRender.domElement.style.position = 'absolute';
 webGLRender.domElement.style.top = 0;
+webGLRender.domElement.style.pointerEvents="none";
 
 const scene = new THREE.Scene();
 
@@ -55,18 +56,19 @@ window.addEventListener('DOMContentLoaded', function(){
       object.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
     
       group.add(object);
+      scene.add(group);
       const observer = new MutationObserver(function(mutationsList, observer) {
         for (let mutation of mutationsList) {
           if (mutation.type == "attributes" && mutation.attributeName == "style" && element.offsetHeight != 0) {
 
             const material = new THREE.MeshPhongMaterial({
-                opacity: 0.1,
+                opacity: 0,
                 color: new THREE.Color(0x000000),
                 side: THREE.DoubleSide,
             });
             const geometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
             const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.set(camera.position.x, camera.position.y,camera.position.z-100);
+            mesh.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
 
             group.add(mesh);
             observer.disconnect();
@@ -76,7 +78,6 @@ window.addEventListener('DOMContentLoaded', function(){
       });
       
       observer.observe(element, { attributes: true });
-      scene.add(group);
     }
     modelJsonLoad(scene, data);
     imageJsonLoad(scene,data);
