@@ -4,6 +4,7 @@ import {OrbitControls} from "OrbitControls";
 import {CameraController}from"./cameraController.js";
 import{modelJsonLoad}from"./modelLoad.js"
 import{imageJsonLoad}from"./imageLoder.js"
+import{cssLoad}from"./cssLoader.js"
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -81,6 +82,7 @@ window.addEventListener('DOMContentLoaded', function(){
     }
     modelJsonLoad(scene, data);
     imageJsonLoad(scene,data);
+    cssLoad(data);
   }
 
 
