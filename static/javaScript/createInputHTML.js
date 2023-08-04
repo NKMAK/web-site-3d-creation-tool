@@ -72,6 +72,8 @@ function onClick(event,scene,transformControls,element){
     scene.traverse(function (object) {
       if (object.uuid == uuid) {
         transformControls.attach(object.parent);
+        transformControls.position.set(object.position.x,object.position.y,object.position.z)
+
         object.parent.children.forEach((child, index) => {
           if(child.type=="Mesh"){
             child.geometry.dispose();
@@ -85,6 +87,8 @@ function onClick(event,scene,transformControls,element){
       }
       else if(object.uuid == uuid2){
         transformControls.attach(object.parent);
+        transformControls.position.set(object.position.x,object.position.y,object.position.z)
+
         object.parent.children.forEach((child, index) => {
           if(child.type=="Mesh"){
             child.geometry.dispose();
