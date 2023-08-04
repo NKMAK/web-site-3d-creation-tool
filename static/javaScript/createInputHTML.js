@@ -59,7 +59,7 @@ function create3dObjElement(inputDom,position,scene,transformControls){
 }
 
 function onClick(event,scene,transformControls,element){
-  if (event.button === 0) {
+  if (event.button == 0) {
     clickedElement = event.target;
   }
   if (event.button != 2) {
@@ -72,10 +72,28 @@ function onClick(event,scene,transformControls,element){
     scene.traverse(function (object) {
       if (object.uuid == uuid) {
         transformControls.attach(object.parent);
+        object.parent.children.forEach((child, index) => {
+          if(child.type=="Mesh"){
+            child.geometry.dispose();
+            const newGeometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
+            child.geometry = newGeometry;
+            child.geometry.computeBoundingBox();
+            child.geometry.computeBoundingSphere();
+          }
+        });
         scene.add(transformControls)
       }
       else if(object.uuid == uuid2){
         transformControls.attach(object.parent);
+        object.parent.children.forEach((child, index) => {
+          if(child.type=="Mesh"){
+            child.geometry.dispose();
+            const newGeometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
+            child.geometry = newGeometry;
+            child.geometry.computeBoundingBox();
+            child.geometry.computeBoundingSphere();
+          }
+        });
         scene.add(transformControls)
       }
     });
