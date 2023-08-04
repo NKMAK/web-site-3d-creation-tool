@@ -11,6 +11,7 @@ const container=document.getElementById("id_canvasContainer");
 const webGLRender = new THREE.WebGLRenderer({ alpha: true, antialias: true });
 webGLRender.setSize(window.innerWidth, window.innerHeight);
 container.appendChild(webGLRender.domElement);
+webGLRender.setClearColor( 0x000000,1);
 
 const cssRender = new CSS3DRenderer();
 cssRender.setSize(window.innerWidth, window.innerHeight);

@@ -32,7 +32,7 @@ function create3dObjElement(inputDom,position,scene,transformControls){
         for (let mutation of mutationsList) {
           if (mutation.type == "attributes" && mutation.attributeName == "style" && element.offsetHeight != 0) {
 
-            const material = new THREE.MeshPhongMaterial({
+            const material = new THREE.MeshStandardMaterial({
                 opacity: 0,
                 color: new THREE.Color(0x000000),
                 side: THREE.DoubleSide,
@@ -54,8 +54,6 @@ function create3dObjElement(inputDom,position,scene,transformControls){
 }
 
 function onClick(event,scene,transformControls,element){
-    console.log(event.target)
-    console.log("oko");
     if (event.button != 2) {
         return;
     }

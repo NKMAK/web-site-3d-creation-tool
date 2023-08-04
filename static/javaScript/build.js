@@ -14,16 +14,14 @@ import {jsonExport} from"./export.js";
 const container=document.getElementById("id_canvasContainer");
 
 const webGLRender = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-webGLRender.setClearColor( 0x000000, 0 );
 webGLRender.setSize(window.innerWidth, window.innerHeight);
+webGLRender.setClearColor( 0x000000,1);
 
 const cssRender = new CSS3DRenderer();
 cssRender.setSize(window.innerWidth, window.innerHeight);
 cssRender.domElement.style.top = 0;
 container.appendChild(cssRender.domElement);
 cssRender.domElement.appendChild(webGLRender.domElement);
-
-let is_cssMode=true;
 
 const canvas = document.createElement('canvas');
 const canvasWidth = window.innerWidth;
@@ -158,7 +156,6 @@ document.getElementById("id_modeHTMLButton").addEventListener("click",function()
   webGLRender.domElement.style.zIndex = '0';
   webGLRender.domElement.style.pointerEvents="none";
   cssActiveTransformControls(cssTransformControls,webGLtransformControls);
-  is_cssMode=true;
 });
 
 document.getElementById("id_modeModelButton").addEventListener("click",function(){
@@ -167,6 +164,5 @@ document.getElementById("id_modeModelButton").addEventListener("click",function(
   webGLRender.domElement.style.zIndex = '1';
   webGLRender.domElement.style.pointerEvents="auto";
   webGLActiveTransformControls(cssTransformControls,webGLtransformControls);
-  is_cssMode=false;
 });
 
