@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import {CSS3DObject } from 'CSS3DRenderer';
 
+let clickedElement;
+
 export function createInputHTML(scene,camera,transformControls) {
     const inputHTML=document.getElementById("id_inputHTML");
     const drawHTMLButton=document.getElementById("id_drawHTMLButton")
@@ -26,6 +28,9 @@ function create3dObjElement(inputDom,position,scene,transformControls){
     element.addEventListener('touchstart', function(event) {
         onClick(event, scene, transformControls,element);
     },true);
+    document.addEventListener("mouseup", handleMouseUp);
+    document.addEventListener("touchend", handleMouseUp);
+    
     group.add(cssObject);
     scene.add(group);
     const observer = new MutationObserver(function(mutationsList, observer) {
@@ -54,22 +59,32 @@ function create3dObjElement(inputDom,position,scene,transformControls){
 }
 
 function onClick(event,scene,transformControls,element){
-    if (event.button != 2) {
-        return;
-    }
-    const uuid = event.target.parentNode.dataset.uuid;
-    const uuid2 = event.target.dataset.uuid;
+  if (event.button === 0) {
+    clickedElement = event.target;
+  }
+  if (event.button != 2) {
+    return;
+  }
+  const uuid = event.target.parentNode.dataset.uuid;
+  const uuid2 = event.target.dataset.uuid;
 
-    if (uuid != undefined || uuid2 != undefined  ) {
-        scene.traverse(function (object) {
-          if (object.uuid == uuid) {
-            transformControls.attach(object.parent);
-            scene.add(transformControls)
-          }
-          else if(object.uuid == uuid2){
-            transformControls.attach(object.parent);
-            scene.add(transformControls)
-          }
-        });
-    }
+  if (uuid != undefined || uuid2 != undefined  ) {
+    scene.traverse(function (object) {
+      if (object.uuid == uuid) {
+        transformControls.attach(object.parent);
+        scene.add(transformControls)
+      }
+      else if(object.uuid == uuid2){
+        transformControls.attach(object.parent);
+        scene.add(transformControls)
+      }
+    });
+  }
+}
+
+function handleMouseUp(event) {
+  if (event.button == 0 && clickedElement != null) {
+    clickedElement.focus();
+    clickedElement = null;
+  }
 }
