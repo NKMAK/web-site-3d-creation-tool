@@ -1,3 +1,5 @@
+import {colorPicker}from"./colorPicker.js"
+
 export function jsonExport(scene,gltfObjects,imageObjects){
     const objects = []; 
     scene.traverse(function(object) {
@@ -73,6 +75,7 @@ export function jsonExport(scene,gltfObjects,imageObjects){
           }
         };
       }),
+      webGLRenderColor:colorPicker.value
     }
       
     return project_data;
