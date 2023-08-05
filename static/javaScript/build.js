@@ -10,6 +10,7 @@ import {cssActiveTransformControls, webGLActiveTransformControls} from "./active
 import{imageLoder,imageObjects} from"./imageLoder.js";
 import{uploadFiles} from"./uploadFiles.js";
 import {jsonExport} from"./export.js";
+import{backColorChage}from"./colorPicker.js"
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -73,6 +74,7 @@ window.addEventListener('DOMContentLoaded', function(){
   modelLoad(scene);
   uploadFileLoderGLTF(scene,camera);
   imageLoder(scene,camera);
+  backColorChage(webGLRender);
 
   const light = new THREE.DirectionalLight(0xffffff); 
   light.position.set(1, 10, 1); 
