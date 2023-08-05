@@ -39,7 +39,7 @@ function create3dObjElement(inputDom,position,scene,transformControls){
 
             const material = new THREE.MeshStandardMaterial({
                 opacity: 0,
-                color: new THREE.Color(0x000000),
+                color: new THREE.Color(0xffffff),
                 side: THREE.DoubleSide,
             });
             const geometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);

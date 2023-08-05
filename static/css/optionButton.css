@@ -1,0 +1,45 @@
+.option{
+    position: absolute;
+    z-index: 2;
+}
+
+#id_translateModeButton,#id_rotateModeButton,#id_scaleModeButton,#id_sceneRemoveButton{
+    height: 4vh;
+    width: 6vw;
+    color: rgba(127,255,255,0.75);
+    background: transparent;
+    outline: 3px solid rgba(127,255,255,0.75);
+    background: linear-gradient(to bottom, rgba(0, 98, 255, 0.4), rgba(115, 253, 239, 0.4));	border: 0px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+
+#id_modeHTMLButton,#id_modeModelButton,#id_jsonExportButton{
+    height: 4vh;
+    width: 6vw;
+    color: rgba(127,255,255,0.75);
+    background: transparent;
+    outline: 3px solid rgba(127,255,255,0.75);
+    background: linear-gradient(to bottom, rgba(132, 255, 0, 0.4), rgba(162, 255, 131, 0.4));	border: 0px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 1);
+    margin-top: 10px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+
+#id_modeHTMLButton{
+    margin-left: 10px;
+}
+
+#id_modeHTMLButton:hover,#id_translateModeButton:hover,#id_rotateModeButton:hover,#id_scaleModeButton:hover,
+#id_jsonExportButton:hover,#id_sceneRemoveButton:hover,#id_modeHTMLButton:hover,#id_modeModelButton:hover {
+    background: linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4));	border: 0px;
+}

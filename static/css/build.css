@@ -3,10 +3,6 @@
   display: flex;
 }
 
-.option{
-  position: absolute;
-  z-index: 2;
-}
 
 #id_canvasContainer {
   position: relative;
