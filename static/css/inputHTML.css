@@ -27,3 +27,7 @@
     margin-top: 10px;
     margin-bottom: 20px;
 }
+
+#id_drawHTMLButton:hover {
+    background: linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4));	border: 0px;
+}
