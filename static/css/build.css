@@ -39,19 +39,16 @@
   margin-bottom: 10px;
 }
 
-.inputHTML , .inputCSS {
+.inputCSS {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-#id_inputHTML , #id_inputCSS{
+#id_inputCSS{
   height: 30vh;
   width: 15vw;
 }
 
-#id_drawHTMLButton{
-  height: 4vh;
-  width: 6vw;
-}
+
 
