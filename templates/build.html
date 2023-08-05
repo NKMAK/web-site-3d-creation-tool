@@ -1,5 +1,6 @@
 <head>
     <link rel="stylesheet" href="static/css/build.css">
+    <link rel="stylesheet" href="static/css/fileUploadButton.css">
     <link id="id_dynamicStylesheet" rel="stylesheet" type="text/css" href="">
     <script type="importmap">
         {
@@ -41,8 +42,15 @@
                 <button id="id_applyCssButton">CSS適用</button>
             </div>
             <div class="fileUpload">
-                <input type="file" id="id_uploadGlb">
-                <input type="file" id="id_uploadImage">
+                <label class="fileUploadLabel">
+                    <input type="file" id="id_uploadGlb">
+                    glbモデルを選択
+                </label>
+                <label class="fileUploadLabel">
+                    <input type="file" id="id_uploadImage">
+                    画像を選択
+                </label>
+
             </div>
         </div>
     </div>
