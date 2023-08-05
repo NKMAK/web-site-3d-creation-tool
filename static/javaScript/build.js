@@ -11,6 +11,7 @@ import{imageLoder,imageObjects} from"./imageLoder.js";
 import{uploadFiles} from"./uploadFiles.js";
 import {jsonExport} from"./export.js";
 import{backColorChage}from"./colorPicker.js"
+import {decorationSelectHandler}from"./decoration.js";
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -75,6 +76,7 @@ window.addEventListener('DOMContentLoaded', function(){
   uploadFileLoderGLTF(scene,camera);
   imageLoder(scene,camera);
   backColorChage(webGLRender);
+  decorationSelectHandler(scene);
 
   const light = new THREE.DirectionalLight(0xffffff); 
   light.position.set(1, 10, 1); 

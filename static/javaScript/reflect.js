@@ -86,6 +86,7 @@ window.addEventListener('DOMContentLoaded', function(){
     imageJsonLoad(scene,data);
     cssLoad(data);
     starCreate(scene);
+    webGLRender.setClearColor( data.webGLRenderColor,1);
   }
 
   const light = new THREE.DirectionalLight(0xffffff); 
