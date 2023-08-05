@@ -23,18 +23,27 @@
         <button id="id_scaleModeButton">拡大</button>
         <button id="id_jsonExportButton">エクスポート</button>
         <button id="id_sceneRemoveButton">削除</button>
+        <button id="id_modeHTMLButton">HTMLモード</button>
+        <button id="id_modeModelButton">モデルモード</button>
     </div>
     <div class="container">
         <div id="id_canvasContainer"></div>
         <div id="id_sidebar">
-            <button id="id_modeHTMLButton">HTMLモード</button>
-            <button id="id_modeModelButton">モデルモード</button>
-            <textarea id="id_inputHTML"></textarea>
-            <button id="id_drawHTMLButton">ok</button>
-            <textarea id="id_inputCSS" rows="4" cols="50"></textarea>
-            <button id="id_applyCssButton">CSS適用</button>
-            <input type="file" id="id_uploadGlb">
-            <input type="file" id="id_uploadImage">
+            <div class="modeChageButtons">
+
+            </div>
+            <div class="inputHTML">
+                <textarea id="id_inputHTML"></textarea>
+                <button id="id_drawHTMLButton">HTML描画</button>
+            </div>
+            <div class="inputCSS">
+                <textarea id="id_inputCSS" rows="4" cols="50"></textarea>
+                <button id="id_applyCssButton">CSS適用</button>
+            </div>
+            <div class="fileUpload">
+                <input type="file" id="id_uploadGlb">
+                <input type="file" id="id_uploadImage">
+            </div>
         </div>
     </div>
     <script src="./static/javaScript/applyCSS.js" ></script>
