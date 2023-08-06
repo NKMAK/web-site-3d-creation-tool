@@ -18,6 +18,8 @@ export function decorationSelectHandler(scene){
             case 1:
                 cancelAnimationFrame(animationId);
                 scene.remove(particleStarGroup);
+                scene.remove(particleSnowGroup1);
+                scene.remove(particleSnowGroup2);
                 particleStarGroup=createColorfulParticle(scene);
                 break;
             case 2:
@@ -43,7 +45,7 @@ function createColorfulParticle(scene) {
         let positions = [];
         const particle = new THREE.Vector3();
         particle.x = Math.random() * 7000 - 3500;
-        particle.y = Math.random() * 2000 - 1000;
+        particle.y = Math.random() * 4000 - 2000;
         particle.z = Math.random() * 7000 - 3500;
   
         positions.push(particle.x, particle.y, particle.z);
