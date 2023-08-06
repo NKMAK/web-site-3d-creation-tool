@@ -5,7 +5,7 @@ import {CameraController}from"./cameraController.js";
 import{modelJsonLoad}from"./modelLoad.js"
 import{imageJsonLoad}from"./imageLoder.js"
 import{cssLoad}from"./cssLoader.js"
-import{starCreate}from"./decoration.js"
+import{jsonLoadDecoration}from"./decoration.js"
 
 const container=document.getElementById("id_canvasContainer");
 
@@ -85,7 +85,7 @@ window.addEventListener('DOMContentLoaded', function(){
     modelJsonLoad(scene, data);
     imageJsonLoad(scene,data);
     cssLoad(data);
-    starCreate(scene);
+    jsonLoadDecoration(data.decoration,scene);
     webGLRender.setClearColor( data.webGLRenderColor,1);
   }
 

@@ -3,38 +3,39 @@ import * as THREE from 'three';
 const selectElement = document.getElementById("id_decorationSelect");
 let animationId;
 let particleStarGroup;
-let particleSnowGroup1=new THREE.Group();;
-let particleSnowGroup2=new THREE.Group();;
-
-export function starCreate(scene){
-    particleStarGroup=createColorfulParticle(scene);
-}
-
+let particleSnowGroup1=new THREE.Group();
+let particleSnowGroup2=new THREE.Group();
 
 export function decorationSelectHandler(scene){
     selectElement.addEventListener("change", function() {
         const selectedIndex = selectElement.selectedIndex;
-        switch(selectedIndex){
-            case 1:
-                cancelAnimationFrame(animationId);
-                scene.remove(particleStarGroup);
-                scene.remove(particleSnowGroup1);
-                scene.remove(particleSnowGroup2);
-                particleStarGroup=createColorfulParticle(scene);
-                break;
-            case 2:
-                cancelAnimationFrame(animationId);
-                scene.remove(particleStarGroup);
-                createSnowParticle(scene);
-                animate();
-                break;
-            case 3:
-                break;
-        }
+        loadDecoration(selectedIndex,scene);
     });
 }
 
+export function jsonLoadDecoration(selectedIndex,scene){
+    loadDecoration(selectedIndex,scene);
+}
 
+function loadDecoration(selectedIndex,scene){
+    switch(selectedIndex){
+        case 1:
+            cancelAnimationFrame(animationId);
+            scene.remove(particleStarGroup);
+            scene.remove(particleSnowGroup1);
+            scene.remove(particleSnowGroup2);
+            particleStarGroup=createColorfulParticle(scene);
+            break;
+        case 2:
+            cancelAnimationFrame(animationId);
+            scene.remove(particleStarGroup);
+            createSnowParticle(scene);
+            animate();
+            break;
+        case 3:
+            break;
+    }
+}
 
 function createColorfulParticle(scene) {
     const group = new THREE.Group();
