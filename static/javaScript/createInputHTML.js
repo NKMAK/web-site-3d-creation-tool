@@ -19,7 +19,6 @@ function create3dObjElement(inputDom,position,scene,transformControls){
     const group = new THREE.Group();
     const cssObject = new CSS3DObject(element);
     element.innerHTML=inputDom;
-    cssObject.position.set(position.x, position.y,position.z-100);
     element.dataset.uuid = cssObject.uuid;
 
     element.addEventListener('mousedown', function(event) {
@@ -44,7 +43,6 @@ function create3dObjElement(inputDom,position,scene,transformControls){
             });
             const geometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
             const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.set(position.x, position.y,position.z-100);
 
             group.add(mesh);
             observer.disconnect();
@@ -52,7 +50,7 @@ function create3dObjElement(inputDom,position,scene,transformControls){
           }
         }
       });
-      
+      group.position.set(position.x, position.y,position.z-100);
       observer.observe(element, { attributes: true });
 
     return group;
