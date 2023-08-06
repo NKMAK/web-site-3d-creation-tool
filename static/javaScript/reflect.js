@@ -72,6 +72,8 @@ window.addEventListener('DOMContentLoaded', function(){
             const geometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
             const mesh = new THREE.Mesh(geometry, material);
             mesh.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
+            mesh.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
+            mesh.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
 
             group.add(mesh);
             observer.disconnect();
