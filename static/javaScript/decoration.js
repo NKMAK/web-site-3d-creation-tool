@@ -19,15 +19,19 @@ export function jsonLoadDecoration(selectedIndex,scene){
 
 function loadDecoration(selectedIndex,scene){
     switch(selectedIndex){
-        case 1:
+        case 0:
             cancelAnimationFrame(animationId);
             scene.remove(particleStarGroup);
+            scene.remove(particleSnowGroup1);
+            scene.remove(particleSnowGroup2);
+            break;
+        case 1:
+            cancelAnimationFrame(animationId);
             scene.remove(particleSnowGroup1);
             scene.remove(particleSnowGroup2);
             particleStarGroup=createColorfulParticle(scene);
             break;
         case 2:
-            cancelAnimationFrame(animationId);
             scene.remove(particleStarGroup);
             createSnowParticle(scene);
             animate();
