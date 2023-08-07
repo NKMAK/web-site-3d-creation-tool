@@ -20,8 +20,8 @@ function create3dObjElement(inputDom,scene,transformControls,camera){
     const cssObject = new CSS3DObject(element);
     element.innerHTML=inputDom;
     element.dataset.uuid = cssObject.uuid;
+    element.style.backgroundColor = "white";
 
-    
     const cameraPosition = camera.position.clone();
     const cameraDirection = camera.getWorldDirection(new THREE.Vector3());
 
