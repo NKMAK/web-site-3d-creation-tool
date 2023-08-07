@@ -28,6 +28,9 @@ export function imageLoder(scene,camera){
                 mesh.position.copy(cameraPosition);
                 mesh.position.x+=cameraDirection.x*100;
                 mesh.position.z+=cameraDirection.z*100;
+                mesh.rotation.x=camera.rotation.x;
+                mesh.rotation.y=camera.rotation.y;
+                mesh.rotation.z=camera.rotation.z;
 
                 scene.add(mesh);
                 imageObjects.push(mesh);

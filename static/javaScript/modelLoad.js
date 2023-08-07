@@ -71,6 +71,10 @@ export function uploadFileLoderGLTF(scene,camera){
         model.position.copy(cameraPosition);
         model.position.x+=cameraDirection.x*100;
         model.position.z+=cameraDirection.z*100;
+        model.rotation.x=camera.rotation.x;
+        model.rotation.y=camera.rotation.y;
+        model.rotation.z=camera.rotation.z;
+
         gltfObjects.push(model);
         gltfObjects[gltfObjects.length-1].path=file.name;
         scene.add(model);
