@@ -70,8 +70,8 @@ window.addEventListener('DOMContentLoaded', function(){
   webGLtransformControls.name="TransformControls";
   scene.add(cssTransformControls);
   scene.add(webGLtransformControls);
-  createInputHTML(scene,camera,cssTransformControls);
 
+  createInputHTML(scene,camera,cssTransformControls);
   modelLoad(scene);
   uploadFileLoderGLTF(scene,camera);
   imageLoder(scene,camera);

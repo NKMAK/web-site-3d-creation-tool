@@ -10,16 +10,20 @@ export function createInputHTML(scene,camera,transformControls) {
     drawHTMLButton.addEventListener("click", drawButtonKeyDown);
 
     function drawButtonKeyDown() {
-         const object=create3dObjElement(inputHTML.value,camera.position,scene,transformControls);
+         const object=create3dObjElement(inputHTML.value,scene,transformControls,camera);
     }
 }
 
-function create3dObjElement(inputDom,position,scene,transformControls){
+function create3dObjElement(inputDom,scene,transformControls,camera){
     const element = document.createElement("div");
     const group = new THREE.Group();
     const cssObject = new CSS3DObject(element);
     element.innerHTML=inputDom;
     element.dataset.uuid = cssObject.uuid;
+
+    
+    const cameraPosition = camera.position.clone();
+    const cameraDirection = camera.getWorldDirection(new THREE.Vector3());
 
     element.addEventListener('mousedown', function(event) {
         onClick(event, scene,transformControls,element);
@@ -50,7 +54,13 @@ function create3dObjElement(inputDom,position,scene,transformControls){
           }
         }
       });
-      group.position.set(position.x, position.y,position.z-100);
+      group.position.copy(cameraPosition);
+      group.position.x+=cameraDirection.x*100;
+      group.position.z+=cameraDirection.z*100;
+      group.rotation.x=camera.rotation.x;
+      group.rotation.y=camera.rotation.y;
+      group.rotation.z=camera.rotation.z;
+
       observer.observe(element, { attributes: true });
 
     return group;
