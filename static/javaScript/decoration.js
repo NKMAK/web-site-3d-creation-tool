@@ -5,6 +5,8 @@ let animationId;
 let particleStarGroup;
 let particleSnowGroup1=new THREE.Group();
 let particleSnowGroup2=new THREE.Group();
+let particleRainGroup1=new THREE.Group();
+let particleRainGroup2=new THREE.Group();
 
 export function decorationSelectHandler(scene){
     selectElement.addEventListener("change", function() {
@@ -27,16 +29,21 @@ function loadDecoration(selectedIndex,scene){
             break;
         case 1:
             cancelAnimationFrame(animationId);
+            scene.remove(particleStarGroup);
             scene.remove(particleSnowGroup1);
             scene.remove(particleSnowGroup2);
             particleStarGroup=createColorfulParticle(scene);
             break;
         case 2:
-            scene.remove(particleStarGroup);
-            createSnowParticle(scene);
-            animate();
+            const snowParticleNum=3000;
+            const snowSpeed=5;
+            createDownParticle(scene,0xffffff,snowParticleNum,snowSpeed);
+
             break;
         case 3:
+            const rainParticleNum=3000;
+            const rainSpeed=5;
+            createDownParticle(scene,0x00b3ff,rainParticleNum,rainSpeed);
             break;
     }
 }
@@ -63,10 +70,17 @@ function createColorfulParticle(scene) {
     return group;
 }
 
-function createSnowParticle(scene) {
-    for (let i = 0; i < 3000; i++) {
+function createDownParticle(scene,color,particleNum,speed) {
+    cancelAnimationFrame(animationId);
+    scene.remove(particleStarGroup);
+    scene.remove(particleSnowGroup1);
+    scene.remove(particleSnowGroup2);
+
+    particleSnowGroup1=new THREE.Group();
+    particleSnowGroup2=new THREE.Group();
+    for (let i = 0; i < particleNum; i++) {
         const geometry = new THREE.BufferGeometry();
-        const material = new THREE.PointsMaterial({ size: 5, color: 0xffffff });
+        const material = new THREE.PointsMaterial({ size: 5, color: color });
   
         let positions = [];
         const particle = new THREE.Vector3();
@@ -84,9 +98,10 @@ function createSnowParticle(scene) {
     particleSnowGroup2.position.y=3000;
     scene.add(particleSnowGroup1);
     scene.add(particleSnowGroup2);
+    animate(speed);
 }
 
-function animate() {
+function animate(speed) {
     animationId=requestAnimationFrame(animate);
     particleSnowGroup1.position.y -= 5;
     particleSnowGroup2.position.y -= 5;
