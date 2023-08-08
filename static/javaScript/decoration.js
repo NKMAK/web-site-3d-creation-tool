@@ -7,6 +7,7 @@ let particleSnowGroup1=new THREE.Group();
 let particleSnowGroup2=new THREE.Group();
 let particleRainGroup1=new THREE.Group();
 let particleRainGroup2=new THREE.Group();
+let createDonutGroup=new THREE.Group();
 
 export function decorationSelectHandler(scene){
     selectElement.addEventListener("change", function() {
@@ -20,18 +21,15 @@ export function jsonLoadDecoration(selectedIndex,scene){
 }
 
 function loadDecoration(selectedIndex,scene){
+    cancelAnimationFrame(animationId);
+    scene.remove(particleStarGroup);
+    scene.remove(particleSnowGroup1);
+    scene.remove(particleSnowGroup2);
+    scene.remove(createDonutGroup);
     switch(selectedIndex){
         case 0:
-            cancelAnimationFrame(animationId);
-            scene.remove(particleStarGroup);
-            scene.remove(particleSnowGroup1);
-            scene.remove(particleSnowGroup2);
             break;
         case 1:
-            cancelAnimationFrame(animationId);
-            scene.remove(particleStarGroup);
-            scene.remove(particleSnowGroup1);
-            scene.remove(particleSnowGroup2);
             particleStarGroup=createColorfulParticle(scene);
             break;
         case 2:
@@ -44,6 +42,9 @@ function loadDecoration(selectedIndex,scene){
             const rainParticleNum=3000;
             const rainSpeed=5;
             createDownParticle(scene,0x00b3ff,rainParticleNum,rainSpeed);
+            break;
+        case 4:
+            createDonut(scene);
             break;
     }
 }
@@ -71,11 +72,6 @@ function createColorfulParticle(scene) {
 }
 
 function createDownParticle(scene,color,particleNum,speed) {
-    cancelAnimationFrame(animationId);
-    scene.remove(particleStarGroup);
-    scene.remove(particleSnowGroup1);
-    scene.remove(particleSnowGroup2);
-
     particleSnowGroup1=new THREE.Group();
     particleSnowGroup2=new THREE.Group();
     for (let i = 0; i < particleNum; i++) {
@@ -101,6 +97,18 @@ function createDownParticle(scene,color,particleNum,speed) {
     animate(speed);
 }
 
+function createDonut(scene){
+    for(let i=0; i<10; i++){
+        const donutGeometry = new THREE.TorusGeometry(200, 18, 3, 16);
+        const DonutMesh = new THREE.MeshStandardMaterial({ wireframe: true, color: 0X00A5FF, roughness: 0.5, transparent: true, opacity: 1.0 });
+
+        const donut=new THREE.Mesh(donutGeometry, DonutMesh)
+        donut.position.set(0, 0, i*(-800));      
+        createDonutGroup.add(donut)
+    }
+    scene.add( createDonutGroup);
+}
+
 function animate(speed) {
     animationId=requestAnimationFrame(animate);
     particleSnowGroup1.position.y -= 5;
@@ -113,4 +121,5 @@ function animate(speed) {
     if (particleSnowGroup2.position.y < -3500) {
         particleSnowGroup2.position.y = 4000;
     } 
-  }
+}
+
