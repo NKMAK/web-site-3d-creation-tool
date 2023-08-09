@@ -150,6 +150,7 @@ document.getElementById("id_jsonExportButton").addEventListener("click",async fu
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
+  cssTransformControls.object.children.forEach(child => cssTransformControls.object.remove(child));
   scene.remove(cssTransformControls.object);
   cssTransformControls.detach();
 });
