@@ -27,6 +27,7 @@ function loadDecoration(selectedIndex,scene){
             scene.remove(particleGroup1);
             scene.remove(particleGroup2);
             scene.remove(donutGroup);
+            scene.remove(randomShapeGroup);
             break;
         case 1:
             particleStarGroup=createColorfulParticle(scene);
@@ -148,7 +149,7 @@ function createRandomShape(scene) {
         shape.rotation.x = Math.random() * Math.PI * 2;
         shape.rotation.y = Math.random() * Math.PI * 2;
         shape.rotation.z = Math.random() * Math.PI * 2;
-        
+
         randomShapeGroup.add(shape);
     }
     scene.add(randomShapeGroup);
