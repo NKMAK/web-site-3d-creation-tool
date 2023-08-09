@@ -43,6 +43,16 @@ camera.position.set(0,20,600);
 const orbitControls = new OrbitControls(camera, cssRender.domElement);
 const cameraControls = new CameraController(camera, cssRender,orbitControls);
 
+const light = new THREE.DirectionalLight(0xffffff); 
+light.position.set(1, 10, 1); 
+scene.add(light);
+const ambientLight = new THREE.AmbientLight(0xcccccc, 0.5); 
+scene.add(ambientLight); 
+const light2 = new THREE.DirectionalLight(0xFFFFFF, 1); 
+scene.add(light2); 
+const pointLight = new THREE.PointLight(0xffffff, 0.8); 
+scene.add(pointLight); 
+
 window.addEventListener('DOMContentLoaded', function(){
 
   function init(){
@@ -90,10 +100,6 @@ window.addEventListener('DOMContentLoaded', function(){
     jsonLoadDecoration(data.decoration,scene);
     webGLRender.setClearColor( data.webGLRenderColor,1);
   }
-
-  const light = new THREE.DirectionalLight(0xffffff); 
-  light.position.set(1, 1, 1); 
-  scene.add(light);
 
   function animate() {
     cameraControls.cameraPositionUpdate();

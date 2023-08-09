@@ -119,7 +119,7 @@ function createDonut(scene){
         const DonutMesh = new THREE.MeshStandardMaterial({ wireframe: true, color: 0X00A5FF, roughness: 0.5, transparent: true, opacity: 1.0 });
 
         const donut=new THREE.Mesh(donutGeometry, DonutMesh)
-        donut.position.set(0, 0, i*(-800)-800);      
+        donut.position.set(0, 0, i*(-800)-100);      
         donutGroup.add(donut)
     }
     scene.add( donutGroup);
