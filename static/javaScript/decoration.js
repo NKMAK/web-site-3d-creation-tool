@@ -8,6 +8,8 @@ let particleGroup2=new THREE.Group();
 let donutGroup=new THREE.Group();
 let randomShapeGroup=new THREE.Group();
 
+export let decorationData=[];
+
 export function decorationSelectHandler(scene){
     selectElement.addEventListener("change", function() {
         const selectedIndex = selectElement.selectedIndex;
@@ -15,8 +17,10 @@ export function decorationSelectHandler(scene){
     });
 }
 
-export function jsonLoadDecoration(selectedIndex,scene){
-    loadDecoration(selectedIndex,scene);
+export function jsonLoadDecoration(decorationData,scene){
+    decorationData.forEach(selectedIndex => {
+        loadDecoration(selectedIndex,scene);
+    });
 }
 
 function loadDecoration(selectedIndex,scene){
@@ -28,28 +32,34 @@ function loadDecoration(selectedIndex,scene){
             scene.remove(particleGroup2);
             scene.remove(donutGroup);
             scene.remove(randomShapeGroup);
+            decorationData=[];
             break;
         case 1:
             particleStarGroup=createColorfulParticle(scene);
+            decorationData.push(selectedIndex);
             break;
 
         case 2:
             const snowParticleNum=3000;
             const snowSpeed=5;
             createDownParticle(scene,0xffffff,snowParticleNum,snowSpeed);
+            decorationData.push(selectedIndex);
             break;
 
         case 3:
             const rainParticleNum=3000;
             const rainSpeed=5;
             createDownParticle(scene,0x00b3ff,rainParticleNum,rainSpeed);
+            decorationData.push(selectedIndex);
             break;
 
         case 4:
             createDonut(scene);
+            decorationData.push(selectedIndex);
             break;
         case 5:
             createRandomShape(scene);
+            decorationData.push(selectedIndex);
             break;
 
     }
@@ -109,7 +119,7 @@ function createDonut(scene){
         const DonutMesh = new THREE.MeshStandardMaterial({ wireframe: true, color: 0X00A5FF, roughness: 0.5, transparent: true, opacity: 1.0 });
 
         const donut=new THREE.Mesh(donutGeometry, DonutMesh)
-        donut.position.set(0, 0, i*(-800));      
+        donut.position.set(0, 0, i*(-800)-800);      
         donutGroup.add(donut)
     }
     scene.add( donutGroup);

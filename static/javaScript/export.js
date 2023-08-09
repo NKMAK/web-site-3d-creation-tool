@@ -1,5 +1,5 @@
 import {colorPicker}from"./colorPicker.js"
-const decorationSelect=document.getElementById("id_decorationSelect");
+import {decorationData}from"./decoration.js"
 
 export function jsonExport(scene,gltfObjects,imageObjects){
     const objects = []; 
@@ -77,7 +77,7 @@ export function jsonExport(scene,gltfObjects,imageObjects){
         };
       }),
       webGLRenderColor:colorPicker.value,
-      decoration:decorationSelect.selectedIndex
+      decoration:decorationData
     }
       
     return project_data;
