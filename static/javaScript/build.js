@@ -151,6 +151,10 @@ document.getElementById("id_jsonExportButton").addEventListener("click",async fu
   }
   const project_data=await jsonExport(scene,gltfObjects,imageObjects);
   await uploadFiles(projectName,project_data);
+  const currentURL = window.location.href;
+  let openURL = currentURL.replace("/build", '');
+  openURL=openURL+"/?project="+projectName;
+  alert(openURL);
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
