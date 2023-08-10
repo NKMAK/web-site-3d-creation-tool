@@ -144,7 +144,7 @@ window.addEventListener('DOMContentLoaded', function(){
 });
 
 document.getElementById("id_jsonExportButton").addEventListener("click",async function(event){
-  const projectName=prompt("名前を入力してください");
+  const projectName=prompt("プロジェクト名を入力してください");
   if (projectName==null) {
     event.preventDefault(); 
     return;
