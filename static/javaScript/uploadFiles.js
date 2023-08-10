@@ -25,7 +25,8 @@ export function uploadFiles(projectName,project_data) {
   formData.append("project_name", projectName);
   formData.append("json_data", json_data);
   formData.append("css_text", inputCssText);
-
+  console.log(json_data)
+  
   fetch("/save_project", {
     method: "POST",
     body: formData

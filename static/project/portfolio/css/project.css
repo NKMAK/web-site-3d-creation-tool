@@ -1,0 +1,179 @@
+.detail{
+
+ display: flex;
+
+ flex-direction: column;
+
+ align-items: center;
+
+ justify-content: center;
+
+ text-align: center;
+
+ border: 4px ridge yellow;
+
+ padding:10px;
+
+background-color:#0f1118;
+
+color:white;
+
+}
+
+
+
+.detail p{
+
+margin: 0px;
+
+margin-bottom:10px;
+
+}
+
+
+
+.skill{
+
+border-top: dashed  6px white;
+
+width: 100%;
+
+}
+
+
+
+.time{
+
+    color: #00BCD4;
+
+    background: black;
+
+    border-top: solid 6px #1dc1d6;
+
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.32);
+
+}
+
+
+
+.product{
+
+ display: flex;
+
+ flex-direction: column;
+
+ align-items: center;
+
+ justify-content: center;
+
+ text-align: center;
+
+ border: 4px ridge yellow;
+
+background-color:black;
+
+color:white;
+
+}
+
+
+
+.url-buttons{
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px; 
+
+    text-align: center; 
+
+ padding:20px;
+
+background-color:black;
+
+color:white;
+
+ border: 4px ridge yellow;
+
+}
+
+
+
+  .url-buttons > h2 {
+
+    grid-column: span 2; 
+
+  }
+
+.url-buttons button{
+
+    color: rgba(127,255,255,0.75);
+
+	background: transparent;
+
+	outline: 3px solid rgba(127,255,255,0.75);
+
+    background: linear-gradient(to bottom, rgba(0, 98, 255, 0.4), rgba(115, 253, 239, 0.4));	border: 0px;
+
+	padding: 5px 10px;
+
+	cursor: pointer;
+
+    border-radius: 10px;
+
+    color: rgba(255, 255, 255, 1);
+
+    margin-top: 10px;
+
+margin-left: 10px;
+
+}
+
+
+
+.url-buttons button:hover {
+
+    background: linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4));	border: 0px;
+
+}
+
+
+
+.play-button{
+
+ padding:5px;
+
+background-color:black;
+
+border: 3px solid black;}
+
+
+
+.play-button button{
+
+    color: rgba(127,255,255,0.75);
+
+	background: transparent;
+
+	outline: 3px solid rgba(127,255,255,0.75);
+
+    background: linear-gradient(to bottom, rgba(0, 98, 255, 0.s4), rgba(115, 253, 239, 0.4));	border: 0px;
+
+	padding: 10px 20px;
+
+	cursor: pointer;
+
+    border-radius: 10px;
+
+    color: rgba(255, 255, 255, 1);
+
+}
+
+
+
+.play-button button:hover {
+
+    background: linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4));	border: 0px;
+
+}

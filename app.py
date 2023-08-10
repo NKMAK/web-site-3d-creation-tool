@@ -11,7 +11,7 @@ def reflect():
     if project_name is None:
         return render_template("index.html",project_json=None)
 
-    with open("static/project/"+project_name+"/json/projectData.json") as f:
+    with open("static/project/"+project_name+"/json/projectData.json",encoding="utf-8_sig") as f:
         project_json = json.load(f)
     return render_template("index.html",project_json=project_json)
 

@@ -54,53 +54,8 @@ const pointLight = new THREE.PointLight(0xffffff, 0.8);
 scene.add(pointLight); 
 
 window.addEventListener('DOMContentLoaded', function(){
-
-  function init(){
-    const data=project_json;
-    for (let i = 0; i < data.html.length; i++) {
-      const element = document.createElement(data.html[i].tagName);
-      const group = new THREE.Group();
-
-      element.innerHTML = data.html[i].innerHTML;
-    
-      const object = new CSS3DObject(element);
-      object.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
-      object.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
-      object.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
-    
-      group.add(object);
-      scene.add(group);
-      const observer = new MutationObserver(function(mutationsList, observer) {
-        for (let mutation of mutationsList) {
-          if (mutation.type == "attributes" && mutation.attributeName == "style" && element.offsetHeight != 0) {
-
-            const material = new THREE.MeshPhongMaterial({
-                opacity: 0,
-                color: new THREE.Color(0x000000),
-                side: THREE.DoubleSide,
-            });
-            const geometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
-            const mesh = new THREE.Mesh(geometry, material);
-            mesh.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
-            mesh.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
-            mesh.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
-
-            group.add(mesh);
-            observer.disconnect();
-            break;
-          }
-        }
-      });
-      
-      observer.observe(element, { attributes: true });
-    }
-    modelJsonLoad(scene, data);
-    imageJsonLoad(scene,data);
-    cssLoad(data);
-    jsonLoadDecoration(data.decoration,scene);
-    webGLRender.setClearColor( data.webGLRenderColor,1);
-  }
-
+  init();
+  //setTimeout(init,4000)
   function animate() {
     cameraControls.cameraPositionUpdate();
     orbitControls.update();
@@ -110,8 +65,55 @@ window.addEventListener('DOMContentLoaded', function(){
 
     requestAnimationFrame(animate);
   }
-
-  init();
   animate();
 });
+
+function init(){
+  const data=project_json;
+  for (let i = 0; i < data.html.length; i++) {
+    const element = document.createElement(data.html[i].tagName);
+    const group = new THREE.Group();
+
+    element.innerHTML = data.html[i].innerHTML;
+  
+    const object = new CSS3DObject(element);
+    object.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
+    object.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
+    object.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
+    group.add(object);
+
+    const observer = new MutationObserver(function(mutationsList, observer) {
+      for (let mutation of mutationsList) {
+        if (mutation.type == "attributes" && mutation.attributeName == "style" && element.offsetHeight != 0) {
+          console.log(element.offsetWidth)
+          //setTimeout(() => {console.log("ok"+element.offsetWidth),10000});
+
+          const material = new THREE.MeshPhongMaterial({
+              opacity: 0,
+              color: new THREE.Color(0x000000),
+              side: THREE.DoubleSide,
+          });
+          const geometry = new THREE.BoxGeometry(element.offsetWidth, element.offsetHeight, 1);
+          const mesh = new THREE.Mesh(geometry, material);
+          mesh.position.set(data.html[i].position.x, data.html[i].position.y, data.html[i].position.z);
+          mesh.rotation.set(data.html[i].rotation.x, data.html[i].rotation.y, data.html[i].rotation.z);
+          mesh.scale.set(data.html[i].scale.x, data.html[i].scale.y, data.html[i].scale.z);
+
+          group.add(mesh);
+          break;
+        }
+      }    
+    });
+
+    observer.observe(element, { attributes: true });
+    setTimeout(() => {
+      scene.add(group);
+  }, 1000);
+  }
+  modelJsonLoad(scene, data);
+  imageJsonLoad(scene,data);
+  cssLoad(data);
+  jsonLoadDecoration(data.decoration,scene);
+  webGLRender.setClearColor( data.webGLRenderColor,1);
+}
 
