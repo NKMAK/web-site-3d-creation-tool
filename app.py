@@ -28,7 +28,7 @@ async def save_project():
     project_name = request.form.get("project_name")
     json_data =request.form.get("json_data")
     css_text = request.form.get("css_text")
-    
+    print(json_data)
     glb_files = request.files.getlist("glb_files")
     image_files = request.files.getlist("image_files")
     
