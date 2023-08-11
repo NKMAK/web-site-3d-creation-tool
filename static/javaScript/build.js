@@ -45,7 +45,7 @@ webGLRender.domElement.style.pointerEvents="none";
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
-camera.position.set(0,20,100);
+camera.position.set(0,20,300);
 
 const cssOrbitControls = new OrbitControls(camera, cssRender.domElement);
 const webGLOrbitControls = new OrbitControls(camera, webGLRender.domElement);
