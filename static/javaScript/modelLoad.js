@@ -20,20 +20,6 @@ export function createModel(jsonData,scene) {
     );
   });
 }
-
-export function modelLoad(scene) {
-  fetch("static/modelData/pathJson/modelPaths.json")
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (jsonData) {
-      createModel(jsonData,scene);
-    })
-    .catch(function (error) {
-      console.error("モデルの読みこみに失敗", error);
-    });
-}
-
   
 export function modelJsonLoad(scene,data) {
 

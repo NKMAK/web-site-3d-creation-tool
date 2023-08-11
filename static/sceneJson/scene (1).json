@@ -1,1 +1,0 @@
-{"metadata":{"version":4.5,"type":"Object","generator":"Object3D.toJSON"},"object":{"uuid":"186ad55f-6447-4e09-84b2-2774eaad2988","type":"Scene","layers":1,"matrix":[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1],"up":[0,1,0],"children":[{"uuid":"105647ad-d172-4b19-8368-c5f65aa26ac2","type":"Object3D","layers":1,"matrix":[1,0,0,0,0,1,0,0,0,0,1,0,0,50,-100,1],"up":[0,1,0]}]}}

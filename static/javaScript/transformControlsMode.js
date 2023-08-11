@@ -9,24 +9,24 @@ export function transformControlsModeChage(transformControls,webGLTransformContr
     translateModeButton.addEventListener("click",function(){
         transformControls.setMode("translate");
         webGLTransformControls.setMode("translate");
-        currentStatusButton.style.borderColor="white";
-        translateModeButton.style.borderColor = "green";
+        currentStatusButton.style.background = "linear-gradient(to bottom, rgba(0, 98, 255, 0.4), rgba(115, 253, 239, 0.4))";
+        translateModeButton.style.background = "linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4))";
         currentStatusButton=translateModeButton;
     });
 
     rotateModeButton.addEventListener("click",function(){
         transformControls.setMode("rotate");
         webGLTransformControls.setMode("rotate");
-        currentStatusButton.style.borderColor="white";
-        rotateModeButton.style.borderColor = "green";
+        currentStatusButton.style.background = "linear-gradient(to bottom, rgba(0, 98, 255, 0.4), rgba(115, 253, 239, 0.4))";
+        rotateModeButton.style.background = "linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4))";
         currentStatusButton=rotateModeButton;
     });
 
     scaleModeButton.addEventListener("click",function(){  
         transformControls.setMode("scale");
         webGLTransformControls.setMode("scale");
-        currentStatusButton.style.borderColor="white";
-        scaleModeButton.style.borderColor = "green";
+        currentStatusButton.style.background = "linear-gradient(to bottom, rgba(0, 98, 255, 0.4), rgba(115, 253, 239, 0.4))";
+        scaleModeButton.style.background = "linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4))";
         currentStatusButton=scaleModeButton;
     });
 

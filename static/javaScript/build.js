@@ -5,7 +5,7 @@ import {TransformControls} from"TransformControls";
 import {CameraController}from"./cameraController.js";
 import{createInputHTML} from"./createInputHTML.js";
 import{transformControlsModeChage}from "./transformControlsMode.js";
-import { modelLoad,gltfObjects, uploadFileLoderGLTF} from './modelLoad.js';
+import { gltfObjects, uploadFileLoderGLTF} from './modelLoad.js';
 import {cssActiveTransformControls, webGLActiveTransformControls} from "./activeStateTransformControls.js";
 import{imageLoder,imageObjects} from"./imageLoder.js";
 import{uploadFiles} from"./uploadFiles.js";
@@ -72,7 +72,6 @@ window.addEventListener('DOMContentLoaded', function(){
   scene.add(webGLtransformControls);
 
   createInputHTML(scene,camera,cssTransformControls);
-  modelLoad(scene);
   uploadFileLoderGLTF(scene,camera);
   imageLoder(scene,camera);
   backColorChage(webGLRender);
