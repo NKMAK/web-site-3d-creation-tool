@@ -159,9 +159,15 @@ document.getElementById("id_jsonExportButton").addEventListener("click",async fu
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
   if (isModelOperation) {
 
-    imageObjects.forEach(function(imageObject,index){
-      if (imageObject.uuid==webGLtransformControls.object.uuid) {
+    imageObjects.forEach(function(element,index){
+      if (element.uuid==webGLtransformControls.object.uuid) {
         imageObjects.splice(index, 1);
+      }
+    })
+
+    gltfObjects.forEach(function(element,index){
+      if (element.uuid==webGLtransformControls.object.uuid) {
+        gltfObjects.splice(index, 1);
       }
     })
     
