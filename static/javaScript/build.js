@@ -131,7 +131,6 @@ window.addEventListener('DOMContentLoaded', function(){
         scene.add(webGLtransformControls)
       }
       else{
-        console.log(clickedObject)
         webGLtransformControls.attach(clickedObject);
         scene.add(webGLtransformControls)
       }
@@ -159,7 +158,14 @@ document.getElementById("id_jsonExportButton").addEventListener("click",async fu
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
   if (isModelOperation) {
-    console.log(webGLtransformControls)
+
+    imageObjects.forEach(function(imageObject,index){
+      if (imageObject.uuid==webGLtransformControls.object.uuid) {
+        imageObjects.splice(index, 1);
+      }
+    })
+    
+
     scene.remove(webGLtransformControls.object);
     webGLtransformControls.detach();
   }
