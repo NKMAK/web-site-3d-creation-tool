@@ -182,20 +182,27 @@ document.getElementById("id_sceneRemoveButton").addEventListener("click",functio
   }
 });
 
-document.getElementById("id_modeHTMLButton").addEventListener("click",function(){
+const modeHTMLButton=document.getElementById("id_modeHTMLButton");
+const modeModelButton=document.getElementById("id_modeModelButton");
+
+modeHTMLButton.addEventListener("click",function(){
   webGLRender.domElement.style.opacity = 1.0;
   cssRender.domElement.style.zIndex = '1';
   webGLRender.domElement.style.zIndex = '0';
   webGLRender.domElement.style.pointerEvents="none";
+  modeModelButton.style.background = "linear-gradient(to bottom, rgba(0, 98, 255, 0.4), rgba(115, 253, 239, 0.4))";
+  modeHTMLButton.style.background = "linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4))";
   cssActiveTransformControls(cssTransformControls,webGLtransformControls);
   isModelOperation=false;
 });
 
-document.getElementById("id_modeModelButton").addEventListener("click",function(){
+modeModelButton.addEventListener("click",function(){
   webGLRender.domElement.style.opacity = 0.8;
   cssRender.domElement.style.zIndex = '0';
   webGLRender.domElement.style.zIndex = '1';
   webGLRender.domElement.style.pointerEvents="auto";
+  modeHTMLButton.style.background = "linear-gradient(to bottom, rgba(0, 98, 255, 0.4), rgba(115, 253, 239, 0.4))";
+  modeModelButton.style.background = "linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4))";
   webGLActiveTransformControls(cssTransformControls,webGLtransformControls);
   isModelOperation=true;
 });
