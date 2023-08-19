@@ -43,6 +43,7 @@ webGLRender.domElement.style.pointerEvents="none";
 
 
 const scene = new THREE.Scene();
+let isModelOperation=false; 
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 3000);
 camera.position.set(0,20,300);
@@ -157,9 +158,16 @@ document.getElementById("id_jsonExportButton").addEventListener("click",async fu
 });
 
 document.getElementById("id_sceneRemoveButton").addEventListener("click",function(){
-  cssTransformControls.object.children.forEach(child => cssTransformControls.object.remove(child));
-  scene.remove(cssTransformControls.object);
-  cssTransformControls.detach();
+  if (isModelOperation) {
+    console.log(webGLtransformControls)
+    scene.remove(webGLtransformControls.object);
+    webGLtransformControls.detach();
+  }
+  else{
+    cssTransformControls.object.children.forEach(child => cssTransformControls.object.remove(child));
+    scene.remove(cssTransformControls.object);
+    cssTransformControls.detach();
+  }
 });
 
 document.getElementById("id_modeHTMLButton").addEventListener("click",function(){
@@ -168,6 +176,7 @@ document.getElementById("id_modeHTMLButton").addEventListener("click",function()
   webGLRender.domElement.style.zIndex = '0';
   webGLRender.domElement.style.pointerEvents="none";
   cssActiveTransformControls(cssTransformControls,webGLtransformControls);
+  isModelOperation=false;
 });
 
 document.getElementById("id_modeModelButton").addEventListener("click",function(){
@@ -176,5 +185,6 @@ document.getElementById("id_modeModelButton").addEventListener("click",function(
   webGLRender.domElement.style.zIndex = '1';
   webGLRender.domElement.style.pointerEvents="auto";
   webGLActiveTransformControls(cssTransformControls,webGLtransformControls);
+  isModelOperation=true;
 });
 
