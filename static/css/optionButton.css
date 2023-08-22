@@ -34,7 +34,10 @@
     margin-bottom: 20px;
     margin-right: 10px;
 }
+#id_modeHTMLButton{
+    background:linear-gradient(to bottom, rgba(255, 0, 0, 0.4), rgba(255, 94, 244, 0.4))
 
+}
 #id_modeHTMLButton{
     margin-left: 10px;
 }

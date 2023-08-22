@@ -1,0 +1,105 @@
+.title{
+
+
+
+ display: flex;
+
+
+
+ flex-direction: column;
+
+
+
+ align-items: center;
+
+
+
+ justify-content: center;
+
+
+
+ text-align: center;
+
+
+
+ border: 4px ridge yellow;
+
+
+
+background-color:black;
+
+
+
+color:white;
+
+
+
+}
+
+
+
+.detail{
+
+
+
+ display: flex;
+
+
+
+ flex-direction: column;
+
+
+
+ align-items: center;
+
+
+
+ justify-content: center;
+
+
+
+ text-align: center;
+
+
+
+ border: 4px ridge yellow;
+
+
+
+ padding:10px;
+
+
+
+background-color:#0f1118;
+
+
+
+color:white;
+
+
+
+}
+
+
+
+
+
+
+
+.detail p{
+
+
+
+margin: 0px;
+
+
+
+margin-bottom:10px;
+
+
+
+}
+
+#purposeTop{
+    border-top: dashed  6px white;
+}
