@@ -19,10 +19,6 @@ def reflect():
 def build():
     return render_template("build.html")
 
-@app.route("/uploadtest", methods=["GET"])
-def upload():
-    return render_template("uploadtest.html")
-
 @app.route("/save_project", methods=["POST"])
 async def save_project():
     project_name = request.form.get("project_name")
